@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Pari{% endblock %}
+
+{% block body %}
+
+    <h1>Edit Pari</h1>
+
+    {{ include('pari/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_pari_index') }}">back to list</a>
+
+    {{ include('pari/_delete_form.html.twig') }}
+{% endblock %}

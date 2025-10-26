@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Reclamation{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+    <style>
+        h1 {text-align: center;}
+        /*p {text-align: center;}*/
+        /*div {text-align: center;}*/
+    </style>
+    <h1>Edit Reclamation</h1>
+    <a href="{{ path('app_rec') }}">back to list</a>
+
+    {{ include('reclamation/_form.html.twig', {'button_label': 'Update'}) }}
+{#    {{ include('mail/mail.html.twig', {'button_label': 'Treat'}) }}#}
+    <a href="{{ path('app_mail') }}">send a response</a>
+
+
+
+
+{#    {{ include('reclamation/_delete_form.html.twig') }}#}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

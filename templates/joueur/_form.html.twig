@@ -1,0 +1,33 @@
+
+
+{{ form_start(form, {'attr': {'novalidate' :'novalidate' }} ) }}
+<div style="display: flex; flex-direction: column;gap: 20px;">
+    <div>
+
+        <h5> Nom</h5>
+        {{ form_row(form.nom,{'label': ' ' ,'attr': {'placeholder': 'Veuillez entrez votre Nom' }  } ) }}
+
+    </div>
+<div>
+    <h5> Prénom</h5>
+    {{ form_row(form.prenom,{'label': ' ' , 'attr': {'placeholder': 'Veuillez entrez votre Prénom' }  } ) }}
+
+</div>
+<div >
+    <h5> Date de naissance</h5>
+    {{ form_row(form.datenaissance) }}
+</div>
+<div>
+    <h5> Adressse Mail </h5>
+    {{ form_row(form.username,{'label': ' ' ,'attr': {'placeholder': 'Veuillez entrez votre Adresse Mail' }  } ) }}
+
+</div>
+<div>
+    <h5> Mot De Passe </h5>
+    {{ form_row(form.password,{'label': ' ' ,'attr': {'value': joueur.password }  } ) }}
+
+
+</div>
+    <button class="button-24">{{ button_label|default('Enregistrer') }}</button>
+</div>
+{{ form_end(form) }}

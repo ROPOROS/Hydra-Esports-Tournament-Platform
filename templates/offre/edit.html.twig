@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Offre{% endblock %}
+
+{% block body %}
+    {% block header  %}
+        {{ parent() }}
+    {% endblock %}
+
+    <div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;" >
+
+<h1>Edit Offre</h1>
+
+    {{ include('offre/_form.html.twig', {'button_label': 'Confirmer'}) }}
+
+</div>
+    {% block footer  %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

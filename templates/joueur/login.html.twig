@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% block header%}
+    {{ parent() }}
+    {% endblock %}
+
+<div class="containerLogin">
+
+
+<div class="part1">
+    <img src="../assets/img/gp.jpg" alt="imageforlogin" />
+</div>
+
+
+<div class="part2">
+
+    <div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 60px;" >
+
+        <h1 >Login</h1>
+
+        <form action="{{ path('security_login') }}" method="POST">
+
+
+<div class="containerloginmdpemail">
+
+        <div class="form-group">
+                    <input placeholder="Tapez votre adresse" required name="_username" type="text" class="form-control" >
+        </div>
+
+
+
+    <div class="form-group">
+        <input placeholder="Tapez votre mot de passe " required name="_password" type="password" class="form-control" >
+    </div>
+
+
+
+    <div>
+    <a href="{{ path('app_forgot_password_request') }}">Mot De Passe Oublié</a>
+    </div>
+
+    <div>
+    <a href="{{ path('app_joueur_new') }}">S'inscrire?</a>
+
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="button-24 btn-success"> Connexion </button>
+    </div>
+
+</div>
+
+    </form>
+
+    </div>
+
+
+
+    <div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;" >
+
+        {% if error %}
+            <div class="alert alert-warning">{{ 'Coordonées incorrectes  ' }}</div>
+        {% endif %}
+    </div>
+
+
+</div>
+</div>
+
+
+{% endblock %}

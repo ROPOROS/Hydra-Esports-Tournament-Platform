@@ -1,0 +1,36 @@
+<body style="margin: 0; padding: 0; color: black\">
+ <div style="width: 40%; margin-left: auto; margin-right: auto\">
+  <div
+   style="
+   margin: 0;
+ padding: 0;
+ height: 70px;
+ background-image: url('https://i.ibb.co/qj1yY5b/bg.png');
+ background-repeat: no-repeat;
+background-size: cover;
+        background-position: center center;
+        "
+    >
+    </div>
+    <div style="background-color: #b7b7b738; padding: 24px 32px">
+      <h1 style="margin: 0;color:black ;padding: 0; text-align: center;font-weight: 400;">
+        Réponse reclamation
+     </h1>
+      <p style="font-size: 18px;color:black ; font-weight: 400; text-align: center;margin-bottom: 16px;">
+        Vous avez récemment déposé une reclamation a propos votre reclamation auprès de notre administrateur {{ mail.nom }}  Et ce sont les décisions de l'administrateur:
+         <b>  </b>
+        <br/>
+
+      </p>
+      <div style="background-color: #b7b7b73a;padding: 8px;width: 80%;margin-left: auto; margin-right: auto">
+        <h1 style="text-align: center;color:black ;margin-bottom: 5px;">Réponse</h1>
+        <h2 style="text-align: center;font-weight: 100;margin-top:5px;opacity: 0.8;color:red">{{ mail.reponse }}</h2>
+      </div>
+      <p style="text-align: center;color:black ;margin-bottom: 8px;margin-top:16px;">Pour plus d'informations sur votre compte consulter la partie profil.</p>
+      <h3 style="text-align: center;color:black ;margin-top: 0">L'équipe Hydra</h3>
+    </div>
+  </div>
+</body>
+
+{#<p>{{ mail.nom }}</p>#}
+{#<p>{{ mail.reponse }}</p>#}

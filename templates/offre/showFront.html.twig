@@ -1,0 +1,213 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% block header  %}
+        {{ parent() }}
+    {% endblock %}
+    {% if app.user.type is defined and app.user.type=='admin' %}
+
+        <section class="shop-area pt-115 pb-60">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="section-title title-style-two text-center mb-70">
+                            <h2 class="title">Gestionnaire Des Offres</h2>
+                            <div class="shop-btn">
+                                <a
+                                        href="{{ path('app_offre_new' )}}"
+                                        class="btn"
+                                ><i class="fas fa-plus"></i>Ajouter Offre</a
+                                >
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 3rem; " >
+                    {% for offre in offres %}
+
+
+                        <div class="row justify-content-center">
+
+
+                            {#                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-9">#}
+                            <div class="shop-item mb-60">
+                                <div style="height: fit-content; width: fit-content;" class="shop-thumb">
+                                    <img src=" {{ asset('assets/img/shop_wrap_img.png') }}" alt="" class="shape" />
+                                    <a
+                                            href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                    ><img   src=" {{ asset('assets/img/shop_img03.png') }}" alt="" class="shop-img"
+                                        /></a>
+                                    <div class="shop-date">
+                                        <span>Hydra Coin</span>
+                                    </div>
+                                    <div class="shop-share">
+                                        <a
+                                                href=" {{ path('app_offre_delete', {'id': offre.id}) }}"
+                                        ><i class="fa-brands fa-paypal"></i>
+
+                                            </a>
+                                    </div>
+                                </div>
+                                <div class="shop-content">
+                                    <div class="shop-content-top">
+                                        <div class="shop-title">
+                                            <h5 class="title">
+                                                <a
+                                                        href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                                > Quantité :{{ offre.quantite }}</a
+                                                >
+                                            </h5>
+                                            <p>Bonus d'achat : {{ offre.bonus }}</p>
+                                        </div>
+                                        <div class="price">
+                                            <span>{{ offre.prix }} DT</span>
+                                        </div>
+                                    </div>
+                                    <div class="shop-content-bottom">
+                                        <div class="shop-btn">
+                                            <a
+                                                    href="{{ path('app_offre_edit', {'id': offre.id}) }}"
+                                                    class="btn"
+                                            ><i class="fas fa-plus"></i>Modifier Offre</a
+                                            >
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            {#                        </div>#}
+                        </div>
+
+
+                    {% else %}
+                        <tr>
+                            <td colspan="6">no records found</td>
+                        </tr>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </section>
+
+
+    {% else %}
+
+    <section class="shop-area pt-115 pb-60">
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="section-title title-style-two text-center mb-70">
+                <h2 class="title">Consultez notre boutique</h2>
+            </div>
+        </div>
+    </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-gap: 3rem; " >
+        {% for offre in offres %}
+
+            <form
+            {% if app.user.id is defined %}
+             action="/checkout" 
+            {% endif %}
+             
+             method="post"  >
+
+                    <div class="row justify-content-center">
+
+
+{#                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm-9">#}
+                            <div class="shop-item mb-60">
+                                <div style="height: fit-content; width: fit-content;" class="shop-thumb">
+                                    <img src=" {{ asset('assets/img/shop_wrap_img.png') }}" alt="" class="shape" />
+                                    <a
+                                            href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                    ><img   src=" {{ asset('assets/img/shop_img03.png') }}" alt="" class="shop-img"
+                                        /></a>
+                                    <div class="shop-date">
+                                        <span>Hydra Coin</span>
+                                    </div>
+                                    <div class="shop-share">
+                                        <a
+                                                href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                        ><<i class="fa-brands fa-paypal"></i>
+
+                                            ></a>
+                                    </div>
+                                </div>
+                                <div class="shop-content">
+                                    <div class="shop-content-top">
+                                        <div class="shop-title">
+                                            <h5 class="title">
+                                                <a
+                                                        href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                                > Quantité :{{ offre.quantite }}</a
+                                                >
+                                            </h5>
+                                            <p>Bonus d'achat : {{ offre.bonus }}</p>
+                                        </div>
+
+
+                                        <div class="price">
+                                            <span  >{{ offre.prix }} DT</span>
+                                        </div>
+                                    </div>
+
+
+
+
+                                        <input type="hidden" id="prixU" name="montant" value="{{ offre.prix }}" >
+
+
+                                    <div class="shop-content-bottom">
+                                        <div class="shop-btn"  >
+                                        {% if app.user.id is  defined %}
+                                            <button  class="btn" type="submit"> Acheter </button>
+                                            {% else %}
+                                            <a href="/login"><button disabled class="btn" type="submit"> Acheter </button></a>
+                                            {% endif %}
+                                            
+{#                                            <a type="submit"#}
+{#                                                    href="/checkout"#}
+{#                                                    class="btn"#}
+{#                                            ><i class="fas fa-plus"></i>Acheter Offre</a#}
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+{#                        </div>#}
+                    </div>
+
+            </form>
+
+
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+
+        {% endfor %}
+        </div>
+
+
+    </div>
+    </section>
+    {% endif %}
+
+
+
+
+<!-- shop-area -->
+
+<!-- shop-area-end -->
+    {% block footer  %}
+        {{ parent() }}
+    {% endblock %}
+    {% block js %}
+	{{ parent() }}
+{% endblock %}
+
+{% endblock %}

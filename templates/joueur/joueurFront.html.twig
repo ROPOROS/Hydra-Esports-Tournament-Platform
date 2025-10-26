@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Joueur index{% endblock %}
+
+{% block body %}
+    {% block header  %}
+        {{ parent() }}
+    {% endblock %}
+<div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;" >
+
+<h1>Gestionnaires Joueurs</h1>
+
+    <table class="table" bgcolor="white">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Datenaissance</th>
+            <th>Mail</th>
+            <th>Wallet</th>
+            <th>Type</th>
+            <th>Avertissement</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for joueur in joueurs %}
+            {% if (joueur.id != app.user.id)  %}
+            {% if (joueur.type=='joueur') %}
+
+            <tr>
+                <td>{{ joueur.id }}</td>
+                <td>{{ joueur.nom }}</td>
+                <td>{{ joueur.prenom }}</td>
+                <td>{{ joueur.datenaissance ? joueur.datenaissance|date('d-m-Y') : '' }}</td>
+                <td>{{ joueur.username }}</td>
+                <td>{{ joueur.wallet }}</td>
+                <td>{{ joueur.type }}</td>
+                <td>{{ joueur.avertissement }}</td>
+                <td>
+                    <a href="{{ path('app_joueur_avert', {'id': joueur.id}) }}">Avertir</a>
+                    {% if joueur.avertissement>=3 %}
+                    <a href="{{ path('app_user_remove', {'id': joueur.id}) }}">Ban</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {#    <a href="{{ path('app_joueur_new') }}">Create new</a>#}
+</div>
+
+    {% block footer  %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

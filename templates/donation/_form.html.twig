@@ -1,0 +1,18 @@
+{{ form_start(form, { 'attr': {'class': 'form-wrapper'}}) }}
+<label class = "label-form">
+    {{ form_widget(form.montant) }}
+    <span> Montant</span>
+</label>
+<br>
+<label class = "label-form" >
+    {{ form_widget(form.idteam) }}
+    <span> nom</span>
+</label>
+<br>
+<label class = "dateselect label-form">
+    {{ form_widget(form.datedon) }}
+    <span>Date du Don</span>
+</label>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

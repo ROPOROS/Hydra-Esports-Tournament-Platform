@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Produit{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+
+
+
+    <div class="area-bg">
+
+        <!-- just-gamer-area -->
+        <section class="just-gamer-area pt-120 pb-100">
+            <div class="just-gamer-shape"></div>
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-6 col-lg-8 order-2 order-xl-0">
+                        <div class="just-gamer-content-box">
+                            <a
+                                    href={{ path('app_produit_index2') }}
+                                    class="btn">
+                                <i class="fas fa-angle-double-left"></i></a>
+                            <div class="section-title title-style-two text-center mb-70">
+                                <h2 class="title">New Produit</h2>
+                            </div>
+                            <div class="tab-content" id="myTabContent">
+                                {{ include('produit/_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- just-gamer-area-end -->
+    </div>
+
+
+
+{% endblock %}
+
+
+    {% block footer%}
+        {{ parent() }}
+    {% endblock %}

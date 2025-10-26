@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Team{% endblock %}
+
+{% block body %}
+{% block header %}
+		{{ parent() }}
+	{% endblock %}
+<div style="margin : 5rem 10rem;">
+    <div style="display:flex;justify-content:center; margin-bottom:32px">
+    <img style="width:200px;border-radius:50%;box-shadow:0 0 5px black;" src = "{{asset('/assets/img/team/' ~ team.logo)}}"/>
+    </div>
+    <style>
+    th,td{
+        text-align:center;
+    }
+    </style>
+    <table class="table"style="color:#F9F9F9">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ team.nom }}</td>
+            </tr>
+            
+            <tr>
+                <th>Wallet</th>
+                <td>{{ team.wallet }}</td>
+            </tr>
+            <tr>
+                <th>Capitaine</th>
+                <td>{{ team.captainid.prenom }} {{ team.captainid.nom }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ team.pays }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ team.datecreation ? team.datecreation|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Joueurs</th>
+                <td>
+                {% for p in team.players %}
+                {{ p.prenom }} {{ p.nom }}<br>
+                {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_team_index') }}">back to list</a>
+
+
+    {% if app.user.id is defined and app.user.type == "admin" %}
+    <a href="{{ path('app_team_edit', {'id': team.id}) }}">edit</a>
+
+    {{ include('team/_delete_form.html.twig') }}
+    {% else %}
+    <a href="/donation/new">
+    <button class="btn">Faire un don</button>
+    </a>
+    {% endif %}
+    </div>
+
+    
+{% endblock %}

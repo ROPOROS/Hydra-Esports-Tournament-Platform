@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Donation{% endblock %}
+
+{% block body %}
+{% block header %}
+	{{ parent() }}
+{% endblock %}
+<div style="margin : 10rem 10rem;">
+    <h1>Modifier Donation</h1>
+
+    {{ include('donation/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('app_donation_index') }}">Retourner à la liste</a>
+    {{ include('donation/_delete_form.html.twig') }}
+ </div>
+
+    {% block footer %}
+		        {{ parent() }}
+		    {% endblock %}
+{% endblock %}

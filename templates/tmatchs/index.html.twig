@@ -1,0 +1,214 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tmatchs index{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+    <div style="margin : 10rem 10rem;">
+    <h4>Espace Admin <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>  Matchs</h4>
+
+<br>
+<br>
+
+
+    {% for message in app.flashes('info') %}
+
+    {% if message == "vous devez choisir lordre de tri" or message == "vous devez choisir lélément avec lequel vous allez trier" %}
+        <div class="alert fade alert-simple alert-warning alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show ">
+
+       <i class="start-icon far fa-check-circle faa-tada animated"></i>
+          <strong class="font__weight-semibold">ALERT!</strong> {{ message }}
+        </div>
+    {% else %}
+<div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show ">
+
+       <i class="start-icon far fa-check-circle faa-tada animated"></i>
+          <strong class="font__weight-semibold">{{ message }}!</strong> vérifier le tableau pour consulter les matchs
+        </div>
+    {% endif %}
+
+    {% endfor %}
+
+        <form method="post" action="{{ path('triM') }}">
+    <div style="display: flex; align-items:center; gap: 10px">
+
+        <div class="custom-select" style="width: 180px;">
+            <select class="form-control" name="storingby">
+                <option>trier par :</option>
+                <option >Nom Tournoi</option>
+                <option >Date</option>
+                <option >Etat</option>
+            </select>
+        </div>
+
+        <div class="custom-select" style="width: 180px;">
+            <select class="form-control" name="type">
+                <option>Sélectionnez l'ordre</option>
+                <option >Croissant</option>
+                <option >Décroissant</option>
+            </select>
+        </div>
+        <button type="submit" class="button-24">Trier</button>
+    </div>
+    </form>
+
+    <hr>
+
+
+    <table class="table" style=" color : #F9F9F9;">
+        <thead>
+            <tr>
+             
+                <th>Nom Tournoi</th>
+                <th>Etat</th>
+                <th>Equipe A</th>
+                <th>Equipe B</th>
+                <th>Date match</th>
+                <th>Score</th>
+                <th>Heure match</th>
+                <th>Phase</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tmatch in tmatchs %}
+            <tr>
+             
+                <th>{{ tmatch.idtournoi.nom }}</th>
+                {% if tmatch.etat == "BetA" %}
+                <td>Bet Autorisé</td>
+                {% else %}
+                <td>Bet non Autorisé</td>
+                {% endif %}
+                <td>{{ tmatch.idequipea.nom }}</td>
+                <td>{{ tmatch.idequipeB.nom }}</td>
+                <td>{{ tmatch.datematch ? tmatch.datematch|date('Y-m-d') : '' }}</td>
+                {% if tmatch.score == "nD" %}
+                <td>Pas encore</td>
+                {% elseif tmatch.score == "A" %}
+                <td>{{tmatch.idequipea.nom}} a gagné</td>
+                {% else  %}
+                <td>{{tmatch.idequipeb.nom}} a gagné</td>
+                {% endif %}
+                <td>{{ tmatch.heurematch }} H</td>
+                <td>{{ tmatch.phase }}</td>
+                <td>
+                    <a href="{{ path('app_tmatchs_show', {'id': tmatch.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Z" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><circle cx="128" cy="128" r="32" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle></svg></a>
+                    {#<a href="{{ path('app_tmatchs_edit', {'id': tmatch.id}) }}">edit</a>#}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+<div>
+    {{ knp_pagination_render(tmatchs) }}
+</div>
+
+{# <br>
+    <a href="{{ path('app_tmatchs_new') }}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>     Ajouter Match</a> #}
+ </div>
+        {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block js %}
+        {{ parent() }}
+    {% endblock %}
+
+<script>
+
+     $(document).ready(function(){
+          $(".alert").delay(4000).hide(300);
+    });
+
+     var x, i, j, l, ll, selElmnt, a, b, c;
+/*look for any elements with the class "custom-select":*/
+x = document.getElementsByClassName("custom-select");
+l = x.length;
+for (i = 0; i < l; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  ll = selElmnt.length;
+  /*for each element, create a new DIV that will act as the selected item:*/
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /*for each element, create a new DIV that will contain the option list:*/
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < ll; j++) {
+    /*for each option in the original select element,
+    create a new DIV that will act as an option item:*/
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        /*when an item is clicked, update the original select box,
+        and the selected item:*/
+        var y, i, k, s, h, sl, yl;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        sl = s.length;
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < sl; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            yl = y.length;
+            for (k = 0; k < yl; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+      /*when the select box is clicked, close any other select boxes,
+      and open/close the current select box:*/
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+}
+function closeAllSelect(elmnt) {
+  /*a function that will close all select boxes in the document,
+  except the current select box:*/
+  var x, y, i, xl, yl, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  xl = x.length;
+  yl = y.length;
+  for (i = 0; i < yl; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < xl; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+/*if the user clicks anywhere outside the select box,
+then close all select boxes:*/
+document.addEventListener("click", closeAllSelect);
+
+
+</script>
+
+{% endblock %}

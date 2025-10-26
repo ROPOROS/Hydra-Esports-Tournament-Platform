@@ -1,0 +1,50 @@
+
+{#<p>This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>#}
+
+{#<p>Cheers!</p>#}
+{#<body style=" margin: 0; padding: 0; color: black;">#}
+{#<div style="width: 40%; margin-left: auto; margin-right: auto" >#}
+{#<div style="margin: 0; padding: 0;height: 70px; background-image: url('https://i.ibb.co/qj1yY5b/bg.png');background-repeat: no-repeat; background-size: cover;background-position: center center;"></div>#}
+{#<div style="background-color: #b7b7b738; padding: 24px 32px ;"></div>#}
+{#  <p>  <h1 style=\"margin:0;color:black;padding:0;text-align:center;font-weight:400;> Requête de réinitialisiation de mot de passe</h1>#}
+{#    Ce lien va expirer dans 24 heures. Si vous n'avez pas fait cette requête#}
+{#            de réinitialisiation de mot de passe, veuillez ignorer ce mail. Aucun#}
+{#           changement ne sera apporté à votre compte. Un autre joueur a entré votre#}
+{#            nom d'utilisateur par erreur.#}
+{#    </p>#}
+{#    <div style="background-color: #b7b7b73a;padding: 8px;width: 80%;margin-left: auto; margin-right: auto">#}
+{#        <h1 style="text-align: center;color:black ;margin-bottom: 5px;">Votre Lien</h1>\n" +#}
+{#        <h2 style="text-align: center;font-weight: 100;margin-top:5px;opacity: 0.8;color:red">#}
+{#            <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>#}
+{#        </h2>\n" +#}
+{#</div>#}
+{#</div>#}
+
+{#</body>#}
+
+<body style="margin:0;padding:0;color:black;">
+  <div style="width:40%;margin-left: auto; margin-right: auto">
+   <div style="margin: 0; padding: 0;height: 70px; background-image: url('https://i.ibb.co/qj1yY5b/bg.png');background-repeat: no-repeat; background-size: cover;background-position: center center;">
+   </div>
+    <div style="background-color:#b7b7b738;padding:24px 32px">
+     <h1 style="margin:0;color:black ;padding: 0; text-align: center;font-weight: 400;">
+        Requête de réinitialisiation de mot de passe"
+      </h1>
+      <p style="font-size: 18px;color:black ; font-weight: 400; text-align: center;margin-bottom: 16px;">
+        On a reçu votre requête de réinitialisiation de mot de passe pour votre
+        compte <b> Hydra </b>
+        <br />
+       <h3> Ce lien va expirer dans 24 heures. Si vous n'avez pas fait cette requête</h3>
+        <h3>  de réinitialisiation de mot de passe, veuillez ignorer ce mail. Aucun</h3>
+        <h3>  changement ne sera apporté à votre compte> </h3>
+      </p>
+      <div style="background-color: #b7b7b73a;padding: 8px;width: 80%;margin-left: auto; margin-right: auto">
+        <h1 style="text-align: center;color:black ;margin-bottom: 5px;">Votre Lien</h1>
+        <h2 style="text-align: center;font-weight: 100;margin-top:5px;opacity: 0.8;color:red"><a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+            </h2>
+      </div>\
+      <p style="text-align: center;color:black ;margin-bottom: 8px;margin-top:16px;">Pour plus d'informations sur votre compte consulter la partie profil.</p>
+    <h3 style="text-align: center;color:black ;margin-top: 0">L'équipe Hydra</h3>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Joueur{% endblock %}
+
+{% block body %}
+
+    {% block header  %}
+        {{ parent() }}
+    {% endblock %}
+
+<div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;" >
+
+
+
+    <table class="table" style="color : white;">
+        <thead>
+        <tr>
+            <th>Nom et Prénom</th>
+            <th>Datenaissance</th>
+            <th>Mail</th>
+            <th>Avertissement</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for joueur in joueurs %}
+            {% if (joueur.id != app.user.id)  %}
+                {% if (joueur.type=='joueur') %}
+            <tr>
+                <td>{{ joueur.nom }} {{ joueur.prenom }} </td>
+                <td>{{ joueur.datenaissance ? joueur.datenaissance|date('d-m-Y') : '' }}</td>
+                <td>{{ joueur.username }}</td>
+                <td>{{ joueur.avertissement }}</td>
+                <td>
+                    <a href="{{ path('app_invitationp', {'id': joueur.id}) }}">Inviter Joueur</a>
+
+
+                </td>
+            </tr>
+            {% endif %}
+            {% endif %}
+
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_invitation_see', {'id': app.user.id}) }}">Consulter invitation</a>
+</div>
+
+    {% block footer  %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

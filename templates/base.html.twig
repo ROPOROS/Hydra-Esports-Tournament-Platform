@@ -1,0 +1,1157 @@
+
+{% set login_gl= 0 %}
+{% set permission = "" %}
+{% if app.user.id is defined %}
+{% set login_gl= app.user.id %}
+{% set userId = app.user.id %}
+{% set permission = app.user.type %}
+{% endif %}
+
+
+<!DOCTYPE html>
+<html class="" lang="">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{% block title %} Hydra - Esports Gaming{% endblock %}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://themepixer.com/html/halda/halda/assets/img/favicon.png') }}"
+    />
+    <!-- Place favicon.ico in the root directory -->
+    <script
+      src="https://kit.fontawesome.com/5431723716.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- CSS here -->
+    {% block css %}
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/fontawesome-all.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/odometer.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/default.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
+
+    <style type="text/css">
+      @font-face {
+        font-family: Roboto;
+        src: url("chrome-extension://mcgbeeipkmelnpldkobichboakdfaeon/css/Roboto-Regular.ttf");
+      }
+    </style>
+    {% endblock %}
+  </head>
+
+  
+  {% block body %}
+  <body>
+  {# login #}
+
+    <!-- preloader -->
+    <div id="preloader" style="display: none">
+      <div id="loading-center">
+        <div class="loader">
+          <div class="loader-outter"></div>
+          <div class="loader-inner"></div>
+        </div>
+      </div>
+    </div>
+    <!-- preloader-end -->
+
+    <!-- Scroll-top -->
+    <button class="scroll-top scroll-to-target" data-target="html">
+      <i class="fas fa-angle-up"></i>
+    </button>
+    <!-- Scroll-top-end-->
+
+    <!-- header-area -->
+    {% block header %}
+    <header>
+      <div id="header-top-fixed"></div>
+      <div id="sticky-header" class="menu-area">
+        <div class="container custom-container">
+          <div class="row">
+            <div class="col-12">
+              <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
+              <div class="menu-wrap">
+                <nav class="menu-nav show">
+                  <div class="logo">
+                    <a href="{{ path('app_home') }}"
+                      ><img src=" {{ asset('assets/img/logo.png') }}" alt=""
+                    /></a>
+                  </div>
+                  <div class="navbar-wrap main-menu d-none d-lg-flex">
+                    <ul class="navigation" id="myNavBar">
+                      <li class="menu-item-has-children">
+                        <a
+                          href="/home"
+                          >Accueil</a
+                        >
+
+                        <li>
+                        <a
+                        {% if app.user.username is defined and app.user.type == "admin" %}
+                          href="/news"
+                        {% else %}
+                         href="/newsF"
+                         {% endif%}
+                          >News</a
+                        >
+                        </li>
+                      
+                        
+                      </li>
+                      <li>
+                        <a
+                          href="/jeu"
+                          >Jeux</a
+                        >
+
+                      </li>
+                      <li>
+                        <a
+                          href="/tournoi"
+                          >Tournois</a
+                        >
+                        {% if app.user.username is defined and app.user.type == "admin" %}
+                        <ul class="sub-menu">
+                          <li>
+                            <a
+                              href="/tmatchs"
+                              >Matchs</a
+                            >
+                            </li>
+                          </li>
+                            <a
+                              href="/pari"
+                              >Paris</a
+                            >
+                          </li>
+                          
+                        </ul>
+
+                        {% endif %}
+                  
+                    
+                        <div class="dropdown-btn">
+                        </div>
+                      </li>
+                      <li class="menu-item-has-children">
+                        <a
+                        {% if app.user.username is defined and app.user.type == "captain" %}
+                          href="/produit/"
+                          {% else %}
+                          href="/produit"
+                        {% endif %}
+                          >Boutique</a
+                        >
+                        {#<ul class="sub-menu">
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/our-squad.html"
+                              >Our Squad</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/match-single.html"
+                              >Match Single</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/shop.html"
+                              >Our Shop</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/shop-details.html"
+                              >Shop Details</a
+                            >
+                          </li>
+                        </ul>#}
+                        <div class="dropdown-btn">
+                        </div>
+                      </li>
+                      {% if app.user.id is defined and app.user.type == "admin" %}
+                      <li>
+                        <a
+                        {% if app.user.type == "admin" %}
+                          href="/rec"
+                       
+                      {% endif %}
+                          >Réclamation</a
+                        >
+                      </li>
+                      {% endif %}
+                      <li>
+                        <a
+                       
+                          href="/offre/offreFront"
+                          >Offres</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                                {% if app.user.id is defined and app.user.type == "admin" %}
+                                  href="/team"
+                                {% else %}
+                                  href="/team/front"
+                                {% endif %}
+                        >Equipes</a>
+                        <ul class="sub-menu">
+                          <li>
+                            <a
+                                {% if app.user.id is defined and app.user.type == "admin" %}
+                                  href="/donation"
+                                {% else %}
+                                  href="/donation/front"
+                                {% endif %}
+                        >donation</a
+                        >
+                            </li>
+    {% if app.user.id is defined and app.user.type == "admin" %}
+                            <li>
+                            <a href = "/joueur/joueurFront">espace joueurs</a>
+                            </li>
+                         {% endif %}
+                          
+                        </ul>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                  <div class="header-action">
+                    <ul>
+                     {% if app.user.id is defined and app.user.type != "admin" %}
+                      <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fcfcfc" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><ellipse cx="128" cy="104" rx="104" ry="48" fill="none" stroke="#fcfcfc" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></ellipse><line x1="128" y1="152" x2="128" y2="200" fill="none" stroke="#fcfcfc" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M24,104v48c0,24,40,48,104,48s104-24,104-48V104" fill="none" stroke="#fcfcfc" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="192" y1="142.1" x2="192" y2="190.1" fill="none" stroke="#fcfcfc" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="64" y1="142.1" x2="64" y2="190.1" fill="none" stroke="#fcfcfc" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+                        {{app.user.wallet}}
+                      </li> 
+                      {% endif %}
+                      {# TODO #}
+                      <li class="header-sine">
+
+                      {% if app.user.username is defined %} 
+                      <a href="/logout" >
+                            <i class="far fa-edit"></i>
+                              Déconnexion
+                          </a >
+                    {% else %}
+                        <a href="/login" >
+                            <i class="far fa-edit"></i>
+                              Connexion
+                          </a >
+                      {% endif %}
+
+                      </li>
+                      {% if app.user.id is defined and app.user.type != "admin" %} 
+                      <div class="dropdown">
+                      <li class="header-sine">
+                        <a
+                        {# {% set mypath = {'iduser': {{login_gl}} } %} #}
+                          {# href="/tmatchs/mymatch/{{login_gl}}" #}
+                          {# href="/profile" #}
+                          ><i class="far fa-user"></i>Profile</a>
+                          <div class="dropdown-content">
+                          <a href="/profile">Mon Profile</a>
+                              <a href="/tmatchs/mymatch/{{login_gl}}">Mon Match</a>
+                              <a href="/pari/{{login_gl}}">Mes Paris</a>
+                              <a href="/reclamation">Mes Réclamations</a>
+                              <a href="/commande">Mes Commandes</a>
+
+                          </div>
+                          
+                      </li>
+                      </div>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+              <!-- Mobile Menu  -->
+              <div class="mobile-menu">
+                <nav class="menu-box">
+                  <div class="close-btn"><i class="fas fa-times"></i></div>
+                  <div class="nav-logo">
+                    <a href="https://themepixer.com/html/halda/halda/index.html"
+                      ><img src=" {{ asset('assets/img/logo.png') }}" alt="" title=""
+                    /></a>
+                  </div>
+                  <div class="menu-outer">
+                    <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+
+                    <ul class="navigation">
+                      <li class="active menu-item-has-children">
+                        <a
+                          href="https://themepixer.com/html/halda/halda/index.html#"
+                          >Home</a
+                        >
+                        <ul class="sub-menu">
+                          <li class="active">
+                            <a
+                              href="https://themepixer.com/html/halda/halda/index.html"
+                              >Home One</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/index-2.html"
+                              >Home Two</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/index-3.html"
+                              >Home three</a
+                            >
+                          </li>
+                        </ul>
+                        <div class="dropdown-btn">
+                        </div>
+                      </li>
+                      <li>
+                        <a
+                          style="cursor:pointer"
+                          >About Us</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="/tournoi"
+                          >Tournament</a
+                        >
+                      </li>
+                      <li class="menu-item-has-children">
+                        <a
+                          href="https://themepixer.com/html/halda/halda/index.html#"
+                          >Blog</a
+                        >
+                        <ul class="sub-menu">
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/blog.html"
+                              >Our Blog</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/blog-details.html"
+                              >Blog Details</a
+                            >
+                          </li>
+                        </ul>
+                        <div class="dropdown-btn">
+                        </div>
+                      </li>
+                      <li class="menu-item-has-children">
+                        <a
+                          href="https://themepixer.com/html/halda/halda/index.html#"
+                          >Pages</a
+                        >
+                        <ul class="sub-menu">
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/our-squad.html"
+                              >Our Squad</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/match-single.html"
+                              >Match Single</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/shop.html"
+                              >Our Shop</a
+                            >
+                          </li>
+                          <li>
+                            <a
+                              href="https://themepixer.com/html/halda/halda/shop-details.html"
+                              >Shop Details</a
+                            >
+                          </li>
+                        </ul>
+                        <div class="dropdown-btn">
+                        </div>
+                      </li>
+                      <li>
+                        <a
+                          href="https://themepixer.com/html/halda/halda/contact.html"
+                          >contact</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="social-links">
+                    <ul class="clearfix">
+                      <li>
+                        <a
+                          href="https://themepixer.com/html/halda/halda/index.html#"
+                          ><span class="fab fa-twitter"></span
+                        ></a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://themepixer.com/html/halda/halda/index.html#"
+                          ><span class="fab fa-facebook-square"></span
+                        ></a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://themepixer.com/html/halda/halda/index.html#"
+                          ><span class="fab fa-pinterest-p"></span
+                        ></a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://themepixer.com/html/halda/halda/index.html#"
+                          ><span class="fab fa-instagram"></span
+                        ></a>
+                      </li>
+                      <li>
+                        <a
+                          href="https://themepixer.com/html/halda/halda/index.html#"
+                          ><span class="fab fa-youtube"></span
+                        ></a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+              <div class="menu-backdrop"></div>
+              <!-- End Mobile Menu -->
+            </div>
+          </div>
+        </div>
+        <div class="header-icon">
+          <a
+            href="https://themepixer.com/html/halda/halda/index.html#"
+            class="menu-tigger"
+            ><img src=" {{ asset('assets/img/hader_icon.png') }}" alt=""
+          /></a>
+        </div>
+      </div>
+      <!-- header-search -->
+      <div
+        class="search-popup-wrap"
+        tabindex="-1"
+        role="dialog"
+        aria-hidden="true"
+      >
+        <div class="search-close">
+          <span><i class="fas fa-times"></i></span>
+        </div>
+        <div class="search-wrap text-center">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="title">... Cherche ici ...</h2>
+                <div class="search-form">
+                  <form
+                    action="https://themepixer.com/html/halda/halda/index.html#"
+                  >
+                    <input
+                      type="text"
+                      name="search"
+                      placeholder="Tapez les mots-clés ici"
+                    />
+                    <button class="search-btn">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- header-search-end -->
+
+      <!-- offCanvas-menu -->
+      <div class="extra-info">
+        <div class="close-icon menu-close">
+          <button><i class="far fa-window-close"></i></button>
+        </div>
+        <div class="logo-side mb-30">
+          <a href="https://themepixer.com/html/halda/halda/index.html"
+            ><img src=" {{ asset('assets/img/logo.png') }}" alt="Logo"
+          /></a>
+        </div>
+        <div class="side-info mb-30">
+          <div class="contact-list mb-30">
+            <h4>Adresse de bureau</h4>
+            <p>
+              05 BeniHilel Menzah VI <br />
+              Ariana, Tunis
+            </p>
+          </div>
+          <div class="contact-list mb-30">
+            <h4>Numéro de téléphone</h4>
+            <p>+216 71 702 999</p>
+            <p>+216 58 408 755</p>
+          </div>
+          <div class="contact-list mb-30">
+            <h4>Email Address</h4>
+            <p>Hydra20@gmail.com</p>
+          </div>
+        </div>
+        
+        <div class="social-icon-right mt-30">
+          <a href="https://www.facebook.com/hydraesport20"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+          <a href="https://themepixer.com/html/halda/halda/index.html#"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a href="https://themepixer.com/html/halda/halda/index.html#"
+            ><i class="fab fa-google-plus-g"></i
+          ></a>
+          <a href="https://themepixer.com/html/halda/halda/index.html#"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </div>
+      </div>
+      <div class="offcanvas-overly"></div>
+      <!-- offCanvas-menu-end -->
+    </header>
+    {% endblock %}
+    <!-- header-area-end -->
+
+    <!-- main-area -->
+    <main>
+
+      {% for message in app.flashes('info') %}
+        {% if message == "Achat effectué avec succés"  %}
+          <div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show " style="margin: 0 278px ;">
+
+            <i class="start-icon far fa-check-circle faa-tada animated"></i>
+            <strong class="font__weight-semibold">{{ message }}!</strong> Merci pour votre achat :)
+          </div>
+
+
+        {% endif %}
+        <br>
+
+      {% endfor %}
+      <!-- banner-area -->
+      <div
+        id="parallax"
+        class="banner-area banner-bg"
+        style="
+          transform: translate3d(0px, 0px, 0px);
+          transform-style: preserve-3d;
+          backface-visibility: hidden;
+          position: relative;
+        "
+      >
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xxl-8 col-lg-9">
+              <div class="banner-content text-center">
+                <h4 class="small-title">NexTec présente</h4>
+                <h2
+                  class="title layer"
+                  data-depth="-0.2"
+                  style="
+                    transform: translate3d(-27.7346px, 16.618px, 0px);
+                    transform-style: preserve-3d;
+                    backface-visibility: hidden;
+                    display: block;
+                  "
+                >
+                  hydra
+                </h2>
+                <div class="banner-btn">
+                  <a
+                    href="https://themepixer.com/html/halda/halda/match-single.html"
+                    class="btn"
+                    >Rejoignez nous maintenant<i class="fas fa-play-circle"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- banner-area-end -->
+
+      <!-- area-bg -->
+      <div class="area-bg">
+        <!-- just-gamer-area -->
+        <section class="just-gamer-area pt-120 pb-100">
+          <div class="just-gamer-shape"></div>
+          <div class="container">
+            <div class="row align-items-center justify-content-center">
+              <div class="col-xl-6 col-lg-8 order-2 order-xl-0">
+                <div class="just-gamer-content-box">
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a
+                        class="nav-link active"
+                        id="team-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#team"
+                        role="tab"
+                        aria-controls="team"
+                        aria-selected="true"
+                        >find team member</a
+                      >
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a
+                        class="nav-link"
+                        id="game-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#game"
+                        role="tab"
+                        aria-controls="game"
+                        aria-selected="false"
+                        >our game shop</a
+                      >
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div
+                      class="tab-pane fade show active"
+                      id="team"
+                      role="tabpanel"
+                      aria-labelledby="team-tab"
+                    >
+                      <div class="section-title">
+                        <h2 class="title">
+                          EXPERIENCE just for gamers <span>OFFER</span>
+                        </h2>
+                        <p>
+                          Nullam quis ante. Maecenas ullamcorper, dui et
+                          placerat feugiat, eros pede varius nisi, condimentum
+                          viverra felis nunc et lorem. In auctor lobortis lacus.
+                          Phasellus gravida semper nisi. Aliquam lobortis.
+                        </p>
+                      </div>
+                      <div class="gamer-content">
+                        <i class="far fa-arrow-alt-circle-right"></i>
+                        <p>Aiguisera votre cerveau et votre concentration</p>
+                      </div>
+                    </div>
+                    <div
+                      class="tab-pane fade"
+                      id="game"
+                      role="tabpanel"
+                      aria-labelledby="game-tab"
+                    >
+                      <div class="section-title">
+                        <h2 class="title">
+                          EXPERIENCE just for gamers <span>OFFER</span>
+                        </h2>
+                        <p>
+                          Nullam quis ante. Maecenas ullamcorper, dui et
+                          placerat feugiat, eros pede varius nisi, condimentum
+                          viverra felis nunc et lorem. In auctor lobortis lacus.
+                          Phasellus gravida semper nisi. Aliquam lobortis.
+                        </p>
+                      </div>
+                      <div class="gamer-content">
+                        <i class="far fa-arrow-alt-circle-right"></i>
+                        <p>Aiguisera votre cerveau et votre concentration</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-8">
+                <div
+                  class="just-gamer-img position-relative text-center text-xxl-end"
+                >
+                  <img src=" {{ asset('assets/img/game_img01.png') }}" alt="" class="main-img" />
+                  <img
+                    src=" {{ asset('assets/img/game_img02.png') }}"
+                    alt=""
+                    class="shape-1 wow fadeInRight"
+                    data-wow-delay=".3s"
+                    style="
+                      visibility: hidden;
+                      animation-delay: 0.3s;
+                      animation-name: none;
+                    "
+                  />
+                  <img
+                    src=" {{ asset('assets/img/game_img03.png') }}"
+                    alt=""
+                    class="shape-2 wow fadeInRight"
+                    data-wow-delay=".6s"
+                    style="
+                      visibility: hidden;
+                      animation-delay: 0.6s;
+                      animation-name: none;
+                    "
+                  />
+                  <img
+                    src=" {{ asset('assets/img/game_img04.png') }}"
+                    alt=""
+                    class="shape-3 wow fadeInLeft"
+                    data-wow-delay=".9s"
+                    style="
+                      visibility: hidden;
+                      animation-delay: 0.9s;
+                      animation-name: none;
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- just-gamer-area-end -->
+
+        <!-- tournament-area -->
+        <section class="tournament-area pb-120">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="tournament-content">
+                  <h6 class="sub-title">DÉCOUVREZ NOTRE PROCHAIN</h6>
+                  <h4 class="title">TOURNOIS DE JEU !</h4>
+                  <p>
+                    Lpsum dolor sit amet, consectetur adipiscing elit, sed
+                    labore et dolore magna aliqua.
+                  </p>
+                  <a
+                    href="https://themepixer.com/html/halda/halda/our-squad.html"
+                    class="btn"
+                    >Rejoignez-nous</a
+                  >
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="prize-pool">
+                  <h3 class="title">Cagnotte</h3>
+                  <h5 class="prize">20000 DT</h5>
+                  <div class="coming-time" data-countdown="2022/5/29">
+                    <div class="time-count day"><span>58</span>:</div>
+                    <div class="time-count hour"><span>10</span>:</div>
+                    <div class="time-count min"><span>02</span>:</div>
+                    <div class="time-count sec"><span>48</span></div>
+                  </div>
+                  <img src=" {{ asset('assets/img/prize_img.png') }}" alt="" />
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="winner-wrap">
+                  <h2 class="title">DERNIERS GAGNANTS</h2>
+                  <div class="winner-active slick-slider">
+                    <div class="winner-item">
+                      <div class="winner-thumb">
+                        <img src=" {{ asset('assets/img/winner_img03.png') }}" alt="" />
+                      </div>
+                      <div class="winner-content">
+                        <span class="place">2ème place</span>
+                      </div>
+                    </div>
+                    <div class="winner-item">
+                      <div class="winner-thumb">
+                        <img src=" {{ asset('assets/img/winner_img01.png') }}" alt="" />
+                      </div>
+                      <div class="winner-content">
+                        <span class="place">2ème place</span>
+                      </div>
+                    </div>
+                    <div class="winner-item">
+                      <div class="winner-thumb">
+                        <img src=" {{ asset('assets/img/winner_img01.png') }}" alt="" />
+                      </div>
+                      <div class="winner-content">
+                        <span class="place">2ème place</span>
+                      </div>
+                    </div>
+                    <div class="winner-item">
+                      <div class="winner-thumb">
+                        <img src=" {{ asset('assets/img/winner_img01.png') }}" alt="" />
+                      </div>
+                      <div class="winner-content">
+                        <span class="place">2ème place</span>
+                      </div>
+                    </div>
+                    <div class="winner-item">
+                      <div class="winner-thumb">
+                        <img src=" {{ asset('assets/img/winner_img01.png') }}" alt="" />
+                      </div>
+                      <div class="winner-content">
+                        <span class="place">2ème place</span>
+                      </div>
+                    </div>
+                    <div class="winner-item">
+                      <div class="winner-thumb">
+                        <img src=" {{ asset('assets/img/winner_img01.png') }}" alt="" />
+                      </div>
+                      <div class="winner-content">
+                        <span class="place">2ème place</span>
+                      </div>
+                    </div>
+                    <div class="winner-item">
+                      <div class="winner-thumb">
+                        <img src=" {{ asset('assets/img/winner_img01.png') }}" alt="" />
+                      </div>
+                      <div class="winner-content">
+                        <span class="place">2ème place</span>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- tournament-area-end -->
+
+        <!-- gallery-area -->
+        <div class="gallery-area">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-xl-8">
+                <div class="gallery-active slick-slider">
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img03.jpg') }}" alt="" />
+                  </div>
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img04.jpg') }}" alt="" />
+                  </div>
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img01.jpg') }}" alt="" />
+                  </div>
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img02.jpg') }}" alt="" />
+                  </div>
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img03.jpg') }}" alt="" />
+                  </div>
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img04.jpg') }}" alt="" />
+                  </div>
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img01.jpg') }}" alt="" />
+                  </div>
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img02.jpg') }}" alt="" />
+                  </div>
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img03.jpg') }}" alt="" />
+                  </div>
+                  <div class="gallery-item">
+                    <img src=" {{ asset('assets/img/gallery_img04.jpg') }}" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="slider-nav"></div>
+          </div>
+        </div>
+        <!-- gallery-area-end -->
+
+        <!-- team-area -->
+        <section class="team-area pt-115">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <div class="section-title title-style-two text-center mb-60">
+                  <h2 class="title">Les équipes inscrites</h2>
+                </div>
+              </div>
+            </div>
+            <div class="team-thumb-wrap">
+              <div class="row justify-content-center">
+                {% for t in teams %}
+                <div class="single-thumb">
+                  <a
+                    href="/team/{{t.id}}"
+                    ><img style="width:139px" src=" {{ asset('assets/img/team/'~t.logo) }}" alt=""
+                  /></a>
+                </div>
+                {% endfor %}
+
+              </div>
+              <div class="team-btn text-center mt-40">
+                <a
+                        href="/team/new"
+                        class="btn"
+                >Creer une Equipe</a
+                >
+              </div>
+              <div class="team-btn text-center mt-40">
+                <a
+                  href="/donation/new"
+                  class="btn"
+                  >Offrir un don</a
+                >
+              </div>
+
+            </div>
+          </div>
+        </section>
+        <!-- team-area-end -->
+
+{% block tmatchs %}{% endblock %}
+
+        <!-- shop-area -->
+        <section class="shop-area pt-115 pb-60">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <div class="section-title title-style-two text-center mb-70">
+                  <h2 class="title">Consultez notre boutique</h2>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+
+              {% for pr in products %}
+              <div class="col-xl-4 col-lg-5 col-md-6 col-sm-9">
+                <div class="shop-item mb-60">
+                  <div class="shop-thumb">
+                    <img src=" {{ asset('assets/img/shop_wrap_img.png') }}" alt="" class="shape" />
+                    <a
+                      href="/produit/{{pr.id}}"
+                      ><img src=" {{ asset('assets/img/'~pr.image) }}" alt="" class="shop-img"
+                    /></a>
+                    <div class="shop-date">
+                      <span>dans 4 jours</span>
+                    </div>
+                    <div class="shop-share">
+                      <a
+                        href="/produit/{{pr.id}}"
+                        ><i class="fas fa-share-alt"></i
+                      ></a>
+                    </div>
+                  </div>
+                  <div class="shop-content">
+                    <div class="shop-content-top">
+                      <div class="shop-title">
+                        <h5 class="title">
+                          <a
+                            href="/produit/{{pr.id}}"
+                            >{{pr.nom}}</a
+                          >
+                        </h5>
+                        <p>{{pr.type}}</p>
+                      </div>
+                      <div class="price">
+                        <span>{{pr.prix}} DT</span>
+                      </div>
+                    </div>
+                    <div class="shop-content-bottom">
+
+                      <div class="shop-btn">
+                        <a
+                          href="/produit/{{pr.id}}"
+                          class="btn"
+                          ><i class="fas fa-plus"></i>Ajouter au panier</a
+                        >
+                      </div>
+
+                      
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+				{{knp_pagination_render(products) }}
+
+
+            </div>
+          </div>
+        </section>
+        <!-- shop-area-end -->
+
+        <!-- newsletter-area -->
+        <section class="newsletter-area pb-120">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="newsletter-wrap">
+                  <div class="newsletter-content">
+                     {#<div class="newsletter-icon">
+                     <img src=" {{ asset('assets/img/newsletter_icon.png') }}" alt="" />
+                    </div>#}
+                  </div>
+                  <div class="newsletter-form">
+                    <form
+                      action="https://themepixer.com/html/halda/halda/index.html#"
+                    >
+                      <input type="email" placeholder="Votre adresse e-mail" />
+                      <button class="btn">
+                        <i class="fas fa-plus"></i>Ajouter au panier
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- newsletter-area-end -->
+      </div>
+      <!-- area-bg-end -->
+    </main>
+    <!-- main-area-end -->
+
+    <!-- footer-area -->
+    {% block footer %}
+    <footer>
+      <div class="footer-top-wrap">
+        <div class="container">
+          <div class="footer-menu-wrap">
+            <div class="row align-items-center">
+              <div class="col-lg-3">
+                <div class="f-logo">
+                  <a href="https://themepixer.com/html/halda/halda/index.html"
+                    ><img src=" {{ asset('assets/img/logo.png') }}" alt=""
+                  /></a>
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <div class="footer-menu">
+                  <nav>
+                    <ul class="navigation">
+                      <li>
+                        <a
+                          href="/"
+                          >ACCUEIL</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          style="cursor:pointer"
+                          onclick="
+                            document.getElementsByClassName('extra-info')[0].classList.add('active');
+                            document.getElementsByClassName('offcanvas-overly')[0].classList.add('active');
+                            "
+                          >À PROPOS DE NOUS</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="/tournoi"
+                          >TOURNOIS</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                        {% if app.user.username is defined and app.user.type == "captain" %}
+                          href="/produit/backoffice"
+                          {% else %}
+                          href="/produit"
+                        {% endif %}
+                          >Boutique</a
+                        >
+                      </li>
+                     {% if app.user.id is defined %}
+                      <li>
+                        <a
+                        {% if app.user.type == "admin" %}
+                          href="/rec"
+                        {% else %}
+                          href="/reclamation/new"
+                      {% endif %}
+                          >Réclamation</a
+                        >
+                      </li>
+                      {% endif %}
+                    </ul>
+                    <div class="footer-search">
+                      <form
+                        action="https://themepixer.com/html/halda/halda/index.html#"
+                      >
+                        <input type="text" placeholder="Trouvez ici maintenant" />
+                        <button><i class="fas fa-search"></i></button>
+                      </form>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="copyright-wrap">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="copyright-text">
+                <p>
+                  Copyright © 2022 All Rights Reserved By <span>NexTec</span>
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="copyright-img text-center text-md-end">
+                <img src=" {{ asset('assets/img/cart_img.png') }}" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {% endblock %}
+    <!-- footer-area-end -->
+
+    <!-- JS here -->
+
+    
+
+{% block js %}
+<script>
+    let myElement = document.getElementById('myNavBar');
+    let myPath = window.location.pathname;
+    let domain = window.location.protocol+"//"+window.location.hostname+":"+window.location.port;
+    
+    if (myPath ==="/")
+      myElement.children[0].classList.add("active");
+else{
+    for (let i = 0; i < myElement.children.length; i++) {
+      let myHref = 
+      (myElement.children[i].getElementsByTagName("a")[0].href)
+      .replace(domain ,"")
+      ;
+      if(
+        myPath.includes(myHref)
+      ){
+        myElement.children[i].classList.add("active");
+      }
+    }}
+    </script>
+    <script src=" {{ asset('jquery-3.6.0.min.js') }}"></>
+    <script src=" {{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/jquery.odometer.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/jquery.nice-select.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/jquery.countdown.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/jquery.ba-throttle-debounce.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/jquery.knob.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/jquery-countdowngampang.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/jquery-ui.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/jquery.appear.js') }}"></script>
+    <script src=" {{ asset('assets/js/parallax.js') }}"></script>
+    <script src=" {{ asset('assets/js/slick.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/wow.min.js') }}"></script>
+    <script src=" {{ asset('assets/js/main.js') }}"></script>
+{% endblock %}
+  </body>
+  {% endblock %}
+</html>

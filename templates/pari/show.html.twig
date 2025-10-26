@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pari{% endblock %}
+
+{% block body %}
+ {% block header %}
+        {{ parent() }}
+    {% endblock %}
+
+
+    <div style="margin : 10rem 10rem;">
+
+{% if pari.iduser.type != "admin" %}
+    <a href="{{ path('app_pari_mybets', {'idjoueur': pari.iduser.id }) }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="216" y1="128" x2="40" y2="128" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="112 56 40 128 112 200" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg> Retourner à la page précédente </a>
+    
+    {% else %}
+<a href="{{ path('app_pari_index') }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="216" y1="128" x2="40" y2="128" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="112 56 40 128 112 200" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg> Retourner à la page précédente </a>
+       {% endif %}
+       <hr>
+
+
+    <h4>{{ pari.iduser.mail}} <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg> {{ pari.idmatch.idequipea.nom}} VS {{pari.idmatch.idequipeb.nom}}</h4>
+
+        <br>
+
+    <table class="table" style=" color : #F9F9F9;">
+        <tbody>
+            <tr>
+                <th>Joueur</th>
+                <td>{{ pari.iduser.mail }}</td>
+            </tr>
+            <tr>
+                <th>Tournoi</th>
+                <td>{{ pari.idmatch.idtournoi.nom }}</td>
+            </tr>
+            <tr>
+                <th>Match</th>
+                <td>{{ pari.idmatch.idequipea.nom }} vs {{ pari.idmatch.idequipeb.nom }} </td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ pari.montant }}</td>
+            </tr>
+            <tr>
+                <th>Paris sur Equipe</th>
+                {% if pari.idequipe == "A" %}
+                <td>{{ pari.idmatch.idequipea.nom }}</td>
+                {% else %}
+                <td>{{ pari.idmatch.idequipeb.nom }}</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <th>Resultat</th>
+                {% if pari.idequipe == pari.idmatch.score %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#24f106" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M56,56v55.1c0,39.7,31.8,72.6,71.5,72.9A72,72,0,0,0,200,112V56a8,8,0,0,0-8-8H64A8,8,0,0,0,56,56Z" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="96" y1="224" x2="160" y2="224" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="184" x2="128" y2="224" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M198.2,128H208a32,32,0,0,0,32-32V80a8,8,0,0,0-8-8H200" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M58,128H47.9a32,32,0,0,1-32-32V80a8,8,0,0,1,8-8h32" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg></td>
+                {% elseif pari.idmatch.score == "nD" %}
+                <td>
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#cfb34f" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="69.3" y1="84" x2="186.2" y2="84" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M128,128,67.2,82.4A8.1,8.1,0,0,1,64,76V40a8,8,0,0,1,8-8H184a8,8,0,0,1,8,8V75.6a8.1,8.1,0,0,1-3.2,6.4L128,128h0" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M128,128,67.2,173.6A8.1,8.1,0,0,0,64,180v36a8,8,0,0,0,8,8H184a8,8,0,0,0,8-8V180.4a8.1,8.1,0,0,0-3.2-6.4L128,128h0" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="128" y1="168" x2="128" y2="128" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+                </td>
+                {% else %}
+                <td>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="#d53235" stroke-linecap="round"  stroke-linejoin="round" stroke-width="24"></line></svg>
+                </td>
+                {% endif %}
+
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+     {# <a href="{{ path('app_pari_edit', {'iduser': pari.iduser}) }}">edit</a> #}
+
+
+    </div>
+     {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

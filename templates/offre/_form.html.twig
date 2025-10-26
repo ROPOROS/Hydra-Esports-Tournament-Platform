@@ -1,0 +1,24 @@
+
+
+{{ form_start(form, {'attr': {'novalidate' :'novalidate' }} ) }}
+<div style="display: flex; flex-direction: column;gap: 20px;">
+    <div>
+
+        <h5> Quantité</h5>
+        {{ form_row(form.quantite,{'label': ' ' ,'attr': {'placeholder': 'Quantite de Token' }  } ) }}
+
+    </div>
+    <div>
+        <h5> Bonus</h5>
+        {{ form_row(form.bonus,{'label': ' ' , 'attr': {'placeholder': 'Bonus Offert' }  } ) }}
+
+    </div>
+    <div>
+        <h5> Prix</h5>
+        {{ form_row(form.prix,{'label': ' ' , 'attr': {'placeholder': 'Prix Des Token' }  } ) }}
+
+    </div>
+
+    <button class="btn">{{ button_label|default('Ajouter') }}</button>
+</div>
+{{ form_end(form) }}

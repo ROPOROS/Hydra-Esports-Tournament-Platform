@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande index{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+    <div><br></div>
+    <h1>Panier</h1>
+
+    <table class="table" bgcolor="#f0f8ff">
+        <thead>
+        <tr>
+        <tr>
+            <th>image</th>
+            <th>produit</th>
+            <th>Type</th>
+            <th>Prix</th>
+        </tr>
+        </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>
+                    <img src=" {{ asset('assets/img/'~commande.idproduit.image) }}" alt="" width="50"height="50"/>
+                </td>
+                <td>{{ commande.idproduit.nom }}</td>
+                <td>{{ commande.idproduit.type}}</td>
+                <td>{{ commande.idproduit.prix }}</td>
+                <td>
+                    {{ include('commande/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Panier vide</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td><a href="{{ path('print') }}">Imprimer</a></td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    {% block footer%}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

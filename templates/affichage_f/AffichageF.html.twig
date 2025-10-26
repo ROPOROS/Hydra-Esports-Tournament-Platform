@@ -1,0 +1,280 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}News{% endblock %}
+
+
+{% block body %}
+
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+
+
+    {#    <h1 style = "margin-top : 40px; text-align:center ;font-weight: bold; color:  #00A9CC">Liste des News</h1> #}
+
+
+    {#    <section class="shop-area pt-115 pb-60"> #}
+    {#        <div class="container"> #}
+    {#            <div class="row justify-content-center"> #}
+    {#                <div class="col-lg-8"> #}
+    {#                    <div class="section-title title-style-two text-center mb-70"> #}
+    {#                        <h2 class="title">News</h2> #}
+    {#                    </div> #}
+    {#                </div> #}
+    {#            </div> #}
+    {#            {% for pp in news %} #}
+
+    {#            <div class="row justify-content-center"> #}
+    {#                <div class="col-xl-4 col-lg-5 col-md-6 col-sm-9"> #}
+    {#                    <div class="shop-item mb-60"> #}
+    {#                        <div class="shop-thumb"> #}
+    {#                            <img src="{{ asset('uploads/images/products/' ~ pp.getImage())  }}" alt="" class="shape" /> #}
+    {#                            <a #}
+    {#                                    href="https://themepixer.com/html/halda/halda/shop-details.html" #}
+    {#                            > #}
+
+    {#                            <div class="shop-date"> #}
+    {#                                <span>{{ pp.dateC|date }} </span> #}
+    {#                            </div> #}
+    {#                        </div> #}
+    {#                        <div class="shop-content"> #}
+    {#                            <div class="shop-content-top"> #}
+    {#                                <div class="shop-title"> #}
+    {#                                    <h5 class="title"> #}
+    {#                                        <a #}
+    {#                                                href="https://themepixer.com/html/halda/halda/shop-details.html" #}
+    {#                                        >{{ pp.sujetN }}</a #}
+    {#                                        > #}
+    {#                                    </h5> #}
+    {#                                    <p>{{ pp.text }}</p> #}
+    {#                                </div> #}
+    {#                                <div class="price"> #}
+    {#                                    <span>48 DT </span> #}
+    {#                                </div> #}
+    {#                            </div> #}
+    {#                            <div class="shop-content-bottom"> #}
+    {#                                <div class="shop-btn"> #}
+    {#                                    <a #}
+    {#                                            href="{{ path('app_news_show', {'id': pp.id}) }}" #}
+    {#                                            class="btn" #}
+    {#                                    ><i class="fas fa-plus"></i>Show news</a> #}
+    {#                                </div> #}
+    {#                            </div> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                </div> #}
+    {#            </div> #}
+    {#                                {% endfor %} #}
+    {#                            </div> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                </div> #}
+    {#            </div> #}
+    {#        </div> <!-- End container --> #}
+    {#    </section> #}
+    <main>
+        <section class="breadcrumb-area breadcrumb-bg breadcrumb-bg-two">
+            <div class="breadcrumb-overflow">
+                <div class="container">
+                    <div class="breadcrumb-inner">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="breadcrumb-content">
+                                    <h2 class="title">latest news</h2>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a
+                                                        href="https://themepixer.com/demo/html/halda/halda/index.html">Home</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">latest news</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-none d-md-block">
+                                <div class="breadcrumb-img-two text-center">
+                                    <img src="../newsF/breadcrumb_img04.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="breadcrumb-shape shape-1 wow slideInLeft" data-wow-delay=".2s" data-wow-duration="2.5s"
+                     style="visibility: visible; animation-duration: 2.5s; animation-delay: 0.2s; animation-name: slideInLeft;">
+                    <img src="../newsF/breadcrumb_shape01.png" alt=""></div>
+                <div class="breadcrumb-shape shape-2 wow slideInRight" data-wow-delay=".2s" data-wow-duration="2.5s"
+                     style="visibility: visible; animation-duration: 2.5s; animation-delay: 0.2s; animation-name: slideInRight;">
+                    <img src="../newsF/breadcrumb_shape02.png" alt=""></div>
+            </div>
+        </section>
+
+        <section class="blog-area black-bg">
+            <div class="container">
+
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        {% for pp in news %}
+                            <div class="blog-item mb-60">
+
+                                <div class="blog-thumb mb-50">
+                                    <a href="https://themepixer.com/demo/html/halda/halda/blog-details.html"><img
+                                                src="{{ asset('uploads/images/products/' ~ pp.getImage()) }}"
+                                                alt=""></a>
+                                </div>
+                                <div class="blog-content">
+                                    <h4 class="small-title">{{ pp.sujetN }}</h4>
+                                    <h2 class="title"><a
+                                                href="https://themepixer.com/demo/html/halda/halda/blog-details.html">{{ pp.text }}</a>
+                                    </h2>
+                                    <div class="blog-meta">
+                                        <ul>
+                                            <li>BY <a href="https://themepixer.com/demo/html/halda/halda/blog.html#">Hydra</a></li>
+                                            <li><i class="far fa-clock"></i>{{ pp.dateC ? pp.dateC|date('Y-m-d') : '' }}
+                                            </li>
+                                            <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#"><i
+                                                            class="far fa-comment"></i>25 COMMENTS</a></li>
+                                            <li><i class="far fa-eye"></i>4,735 VIEWS</li>
+                                        </ul>
+                                    </div>
+                                    <div class="blog-content-bottom">
+                                        <a href="" class="btn">Read more</a>
+                                        <ul class="social">
+                                            <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#"><i
+                                                            class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#"><i
+                                                            class="fab fa-twitter"></i></a></li>
+                                            <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#"><i
+                                                            class="fab fa-youtube"></i></a></li>
+                                            <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#"><i
+                                                            class="fab fa-linkedin-in"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                    <div class="col-lg-4">
+                        <aside class="blog-sidebar">
+                            <div class="blog-widget">
+                                <h4 class="widget-title">Searching</h4>
+                                <div class="sidebar-search">
+                                    <form action="https://themepixer.com/demo/html/halda/halda/blog.html#">
+                                        <input type="text" placeholder="Search...">
+                                        <button><i class="fas fa-search"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="blog-widget">
+                                <h4 class="widget-title">CATEGORIES</h4>
+                                <div class="blog-categories">
+                                    <ul>
+                                        <li>
+                                            <a href="https://themepixer.com/demo/html/halda/halda/blog-details.html"
+                                               data-background="../newsF/categories_img01.jpg"
+                                               style="background-image: url(https://themepixer.com/demo/html/halda/halda/assets/img/blog/categories_img01.jpg);">
+                                                shooting games <span>26</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://themepixer.com/demo/html/halda/halda/blog-details.html"
+                                               data-background="assets/img/blog/categories_img02.jpg"
+                                               style="background-image: url(https://themepixer.com/demo/html/halda/halda/assets/img/blog/categories_img02.jpg);">
+                                                arcade free games <span>14</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://themepixer.com/demo/html/halda/halda/blog-details.html"
+                                               data-background="assets/img/blog/categories_img03.jpg"
+                                               style="background-image: url(https://themepixer.com/demo/html/halda/halda/assets/img/blog/categories_img03.jpg);">
+                                                online games <span>16</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        
+
+
+                                <div class="blog-widget">
+                                    <h4 class="widget-title">Recent Post</h4>
+                                        {% for pp in news %}
+                                    <div class="rc-post-list">
+                                        <ul>
+                                            <li>
+                                                <div class="rc-post-thumb">
+                                                    <a href="https://themepixer.com/demo/html/halda/halda/blog-details.html"><img
+                                                                src="{{ asset('uploads/images/products/' ~ pp.getImage()) }}"
+                                                                alt=""></a>
+                                                </div>
+                                                <div class="rc-post-content">
+                                                    <h5 class="title"><a
+                                                                href="https://themepixer.com/demo/html/halda/halda/blog-details.html">{{ pp.sujetN }}</a>
+                                                    </h5>
+                                                    <span class="date"><i
+                                                                class="far fa-clock"></i>{{ pp.dateC ? pp.dateC|date('Y-m-d') : '' }}</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <br>
+                                            {% endfor %}
+                                </div>
+                    
+                            <div class="blog-widget">
+                                <h4 class="widget-title">Newsletter</h4>
+                                <div class="sidebar-newsletter text-center">
+                                    <div class="sn-thumb mb-30">
+                                        <img src="./Halda - eSports Gaming HTML5 Template_files/newsletter_img.png"
+                                             alt="">
+                                    </div>
+                                    <div class="sn-content">
+                                        <p>A newsletter is an email you can send to customers!</p>
+                                        <form action="https://themepixer.com/demo/html/halda/halda/blog.html#">
+                                            <input type="text" placeholder="Enter email">
+                                            <button>Subscribe Now</button>
+                                        </form>
+                                        <p class="last-text">Don’t worry, we don’t spam</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="blog-widget">
+                                <h4 class="widget-title">tagS</h4>
+                                <ul class="shop-sidebar-tags">
+                                    <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#">game</a></li>
+                                    <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#">offline</a>
+                                    </li>
+                                    <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#">online
+                                            gaming</a></li>
+                                    <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#">shooting</a>
+                                    </li>
+                                    <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#">online
+                                            games</a></li>
+                                    <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#">X-box</a></li>
+                                    <li><a href="https://themepixer.com/demo/html/halda/halda/blog.html#">zombie
+                                            games</a></li>
+                                </ul>
+                            </div>
+                        </aside>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+    </main>
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+    {% block js %}
+	{{ parent() }}
+{% endblock %}
+
+{% endblock %}
+
+

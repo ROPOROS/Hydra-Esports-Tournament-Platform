@@ -1,0 +1,53 @@
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} )  }}
+<div class="contact-form" style="width: 50%">
+    <div class="form-grp">
+        {{ form_label(form.sujetN,"Sujet") }}
+        {{ form_widget(form.sujetN,{'attr': {'placeholder': 'Sujet' }  }) }}
+        {{ form_errors(form.sujetN) }}
+    </div>
+
+{#    <style>#}
+{#        .label-form ul li {#}
+{#            color:white;#}
+{#        }#}
+{#    </style>#}
+{#    <label class = "label-form">#}
+{#        {{ form_widget(form.sujetN) }}#}
+{#        {{ form_widget(form.sujetN,{'attr': {'placeholder': 'Sujet' }  }) }}#}
+{#        {{ form_errors(form.sujetN) }}#}
+{#        <span> Sujet</span>#}
+{#    </label>#}
+
+<div class="form-grp">
+        {{ form_label(form.text,"Description :") }}
+        {{ form_widget(form.text,{'attr': {'placeholder': 'Description' }  }) }}
+        {{ form_errors(form.text) }}
+</div>
+<div class="form-grp">
+        {{ form_label(form.imageFile,"Image :") }}
+        {{ form_widget(form.imageFile) }}
+        {{ form_errors(form.imageFile) }}
+    </div>
+<div class="form-grp">
+        {{ form_label(form.dateC,"DateC:") }}
+        {{ form_widget(form.dateC) }}
+        {{ form_errors(form.dateC) }}
+    </div>
+<div class="form-grp">
+        {{ form_label(form.dateF,"DateF :") }}
+        {{ form_widget(form.dateF) }}
+        {{ form_errors(form.dateF) }}
+    </div>
+<div class="form-grp">
+        {{ form_label(form.idjeu ,"Jeu :") }}
+        {{ form_widget(form.idjeu) }}
+        {{ form_errors(form.idjeu) }}
+    </div>
+{#<div class="form-grp">#}
+{#        {{ form_label(form.Submit) }}#}
+{#        {{ form_widget(form.Submit) }}#}
+{#    </div>#}
+<button class="btn" type="submit" style="">Submit</button>
+</div>
+{{ form_end(form) }}
+

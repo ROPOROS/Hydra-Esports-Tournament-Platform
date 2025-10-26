@@ -1,0 +1,370 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pari index{% endblock %}
+
+{% block body %}
+
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+
+
+ <section class="my-match-area">
+    {# <h4>Profiles <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>  Mes Paris</h4> #}
+
+    <div class="section-title title-style-two text-center mb-60">
+                                <h2 class="title">Voir <span>mes</span> PARIS</h2>
+                            </div>
+
+		
+
+    {% for message in app.flashes('info') %}
+		{% if message == "Modification invalide! Le montant doit etre entre 1 et 999" or message == "vous navez pas assez de HYDRACOINS pour parier, vous devez recharger votre portefeuille" %}
+		 <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show " style="margin: 0 278px ;">
+
+       <i class="start-icon far fa-check-circle faa-tada animated"></i>
+          <strong class="font__weight-semibold">{{ message }}!</strong> vérifier le tableau pour consulter vos paris
+      </div>
+
+			{% elseif message == "vous avez déjà parié sur ce match, si vous voulez faire une modification, vous devez le faire dans cette fenêtre" %} 
+				<div class="alert fade alert-simple alert-warning alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show " style="margin: 0 278px ;">
+
+       <i class="start-icon far fa-check-circle faa-tada animated"></i>
+          <strong class="font__weight-semibold">{{ message }}!</strong> vérifier le tableau pour consulter vos paris
+      </div>
+
+			{% else %}
+	
+        <div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show " style="margin: 0 278px ;">
+
+       <i class="start-icon far fa-check-circle faa-tada animated"></i>
+          <strong class="font__weight-semibold">{{ message }}!</strong> vérifier le tableau pour consulter vos paris
+        </div>
+
+	{% endif %}
+				<br>
+
+    {% endfor %}
+
+    <div class="container">
+		{% for pari in paris %}
+        <div class="my-match-inner">
+
+				<div class="my-match-box-wrap my-matchhovering" 
+                id="{{ pari.idmatch.id }}" 
+                ondblclick="openModal(this);"
+                style="cursor:pointer;"
+                >
+					<img src="../assets/img/my_match_box.png" alt="" class="match-box-bg" />
+					<ul>
+						<li>
+							<div class="my-match-team">
+								<div class="team-one" >
+									<div class="box">
+									      <span></span>
+												<span></span>
+												<span></span>
+												<span></span>
+											<div class="contentteam">
+											<img src="../assets/img/team/{{ pari.idmatch.idequipea.logo }}"
+                                            {% if pari.idequipe == "A" %}
+                                            class = "teamSelected" 
+                                            {% endif %}
+                                            alt=""/>
+											</div>
+									</div>
+								</div>
+								<div class="vs">
+									<img src="../assets/img/match_vs02.png" 
+                                    alt=""/>
+								</div>
+								<div class="team-one" >
+									<img src="../assets/img/team/{{ pari.idmatch.idequipeb.logo }}" 
+                                     {% if pari.idequipe == "B" %}
+                                            class = "teamSelected" 
+                                            {% endif %}
+                                    alt=""/>
+								</div>
+							</div>
+						</li>
+						<li>
+
+							<div class="my-match-info">
+							<h3 class="tournamentName">
+									{{ pari.idmatch.idtournoi.nom }}
+								</h3>
+								<h6 class="tournamentName">
+								{{pari.idmatch.idequipea.nom }} VS {{pari.idmatch.idequipeb.nom }}
+								</h6>
+								
+								<span class="matchdate">{{ pari.idmatch.datematch | date('Y/m/d') }}</span>
+							</div>
+						</li>
+									{% if pari.idmatch.etat == "BetA"%}
+									
+                        <li>
+                        {{ include('pari/_delete_form.html.twig') }}
+                        </li>
+									{% else %}
+											{% if pari.idmatch.score == "nD" %}
+									<li>
+                      <a href="https://www.twitch.tv/shroud" target="_blank" class="live-btn-supp">Live MATCHES</a>
+                  </li>
+										{% else %}
+											<li style="margin-right : 7px;">
+                       Le match est terminé
+                  </li>
+									{% endif %}
+
+									{% endif %}
+                        
+						<li>
+                  {% if pari.idequipe == pari.idmatch.score %}
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#24f106" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M56,56v55.1c0,39.7,31.8,72.6,71.5,72.9A72,72,0,0,0,200,112V56a8,8,0,0,0-8-8H64A8,8,0,0,0,56,56Z" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="96" y1="224" x2="160" y2="224" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="184" x2="128" y2="224" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M198.2,128H208a32,32,0,0,0,32-32V80a8,8,0,0,0-8-8H200" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M58,128H47.9a32,32,0,0,1-32-32V80a8,8,0,0,1,8-8h32" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg></td>
+                {% elseif pari.idmatch.score == "nD" %}
+              
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#cfb34f" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="69.3" y1="84" x2="186.2" y2="84" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M128,128,67.2,82.4A8.1,8.1,0,0,1,64,76V40a8,8,0,0,1,8-8H184a8,8,0,0,1,8,8V75.6a8.1,8.1,0,0,1-3.2,6.4L128,128h0" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M128,128,67.2,173.6A8.1,8.1,0,0,0,64,180v36a8,8,0,0,0,8,8H184a8,8,0,0,0,8-8V180.4a8.1,8.1,0,0,0-3.2-6.4L128,128h0" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="128" y1="168" x2="128" y2="128" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+           
+                {% else %}
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="#d53235" stroke-linecap="round"  stroke-linejoin="round" stroke-width="24"></line></svg>
+                
+                {% endif %}
+						</li>
+					</ul>
+				</div>
+
+        </div>
+
+
+		{% endfor %}
+
+    </div>
+
+		<div >
+    {{ knp_pagination_render(paris) }}
+</div>
+
+		<br>
+		     <center><a href="{{ path('app_home') }}" style=" width:fit-content; " class="btn">    Ajouter un Paris</a></center>
+
+
+
+
+        </section>
+
+	<div class="modalyedit hidden">
+		<div class="my-match-box-wrap myPopUp fadeInDown" data-wow-delay=".4s" {# style=" visibility: visible; animation-delay: 0.4s; animation-name: fadeInDown; " #}>
+			<button class="close-modal"></button>
+			<img src="../assets/img/my_match_box.png" alt="" class="match-box-bg"/>
+			<ul>
+				<li>
+					<div class="my-match-team">
+						<div class="team-one" onclick="selectTeam('A')" >
+							<div class="box">
+								<span></span>
+								<span></span>
+								<span></span>
+								<span></span>
+								<div class="contentteam">
+									<img src="../assets/img/logo.png" class = "teamSelected" alt=""/>
+								</div>
+							</div>
+						</div>
+						<div class="vs">
+							<img src="../assets/img/match_vs02.png" alt=""/>
+						</div>
+						<div class="team-one" onclick="selectTeam('B')">
+							<img src="../assets/img/my_match_clan04.png" alt=""/>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="my-match-info">
+		<h3 class="tournamentName">
+								xDD
+								</h3>
+								<h6 class="matchteamavsteamb">
+								hahah
+								</h6>
+						<span class="matchdate">10th Mar 2022.</span>
+					</div>
+				</li>
+				<li>
+					{# TODO #}
+
+				<form class="formtomodifymatch" action="" method="post" style="margin-top: 32px;">
+				<label class = "label-form">
+				<input type="number" id="montant" name="montant" value = "22" class="inputmontant" required minlength="1" maxlength="3" size="10">
+        <span>Montant</span>
+        </label>
+		
+				<input type="hidden" id="idequipe" name="idequipe" value="">
+				<input type="hidden" id="oldmontant" name="oldmontant" value="" class="oldmontant">
+				<input type="hidden" id="idmatch" name="idmatch" value="">
+ 				<input type="hidden" id="iduser" name="iduser" value="{{ login_gl }}"> 
+
+
+					 <a class = "btnparis" style="display : none;">
+
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#cfb34f" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><ellipse cx="96" cy="84" rx="80" ry="36" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></ellipse><path d="M16,84v40c0,19.9,35.8,36,80,36s80-16.1,80-36V84" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="64" y1="117" x2="64" y2="157" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M176,96.7c36.5,3.4,64,17.9,64,35.3,0,19.9-35.8,36-80,36-19.6,0-37.6-3.2-51.5-8.4" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M80,159.3V172c0,19.9,35.8,36,80,36s80-16.1,80-36V132" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="192" y1="165" x2="192" y2="205" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="117" x2="128" y2="205" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg> Enregister
+
+					</a> 
+
+
+		</form>
+
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="overlayedit hidden"></div>
+
+	
+
+
+
+
+    
+        {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% block js %}
+        {{ parent() }}
+<script>
+
+     $(document).ready(function(){
+          $(".alert").delay(4000).hide(300);
+    });
+
+
+const modal = document.querySelector(".modalyedit");
+const overlay = document.querySelector(".overlayedit");
+const btnCloseModal = document.querySelector(".close-modal");
+const btnsOpenModal = document.querySelectorAll(".show-modal");
+
+
+
+var tparis = [];
+{% for t in paris %}
+tparis.push({
+"tpari": {
+"id": '{{ t.idmatch.id }}',
+"idj": '{{ t.iduser.id }}',
+"tournoiNom": '{{ t.idmatch.idTournoi.nom }}',
+"logoTeamA": '{{ t.idmatch.idequipea.logo }}',
+"logoTeamB": '{{ t.idmatch.idequipeb.logo }}',
+"nomteamA": '{{ t.idmatch.idequipea.nom }}',
+"nomteamB": '{{ t.idmatch.idequipeb.nom }}',
+"idTeamA": '{{ t.idmatch.idequipea.ID }}',
+"idTeamB": '{{ t.idmatch.idequipeb.ID }}',
+"etatMatch": '{{ t.idmatch.etat }}',
+"montantpari": '{{ t.montant }}',
+"matchdate": '{{ t.idmatch.datematch | date("Y/m/d") }}'
+}
+});
+{% endfor %}
+
+
+var tpari;
+var container = document.getElementsByClassName("myPopUp")[0];
+
+var teamA = container.getElementsByClassName('team-one')[0].getElementsByTagName("img")[0];
+var teamB = container.getElementsByClassName('team-one')[1].getElementsByTagName("img")[0];
+
+var tournoi = container.getElementsByClassName('tournamentName')[0];
+var matchteamavsteamb = container.getElementsByClassName('matchteamavsteamb')[0];
+var inputmontant = container.getElementsByClassName('inputmontant')[0];
+
+
+var datematch = container.getElementsByClassName('matchdate')[0];
+
+var btn = container.getElementsByClassName('btn')[0];
+
+var idequipe = document.getElementById('idequipe');
+var idmatch = document.getElementById('idmatch');
+
+var btnparis = document.getElementsByClassName('btnparis')[0];
+
+var formtomodifymatch = document.getElementsByClassName('formtomodifymatch')[0];
+var oldmontant = document.getElementsByClassName('oldmontant')[0];
+
+
+
+
+
+
+function openModal(element) {
+
+for (var i = 0; i < tparis.length; i++) {
+if (tparis[i].tpari.id == element.id) {
+tpari = tparis[i].tpari;
+} 
+}
+
+
+if (tpari.etatMatch == "BetA" ) {
+
+modal.classList.remove("hidden");
+overlay.classList.remove("hidden");
+
+tournoi.innerHTML = tpari.tournoiNom;
+matchteamavsteamb.innerHTML = tpari.nomteamA + " VS " + tpari.nomteamB
+teamA.src = "../assets/img/team/" + tpari.logoTeamA;
+teamB.src = "../assets/img/team/" + tpari.logoTeamB;
+datematch.innerHTML = tpari.matchdate;
+idmatch.value = tpari.id;
+inputmontant.setAttribute("value", parseInt(tpari.montantpari));
+idequipe.value = "A";
+btnparis.href = "/pari/edit/"+tpari.idj+"/"+tpari.id;
+formtomodifymatch.action ="/pari/edit/"+tpari.idj+"/"+tpari.id;
+oldmontant.setAttribute("value", parseInt(tpari.montantpari));
+
+
+	}
+
+}
+
+
+const closeModal = function () {
+modal.classList.add("hidden");
+overlay.classList.add("hidden");
+};
+
+
+
+btnCloseModal.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", function (e) { // console.log(e.key);
+
+if (e.key === "Escape" && ! modal.classList.contains("hidden")) {
+closeModal();
+}
+});
+
+function selectTeam(x){
+	let AorB;
+	if (x == "A")  
+	{
+		
+		teamA.classList.add('teamSelected');
+		teamB.classList.remove('teamSelected');
+
+	} 
+		else {
+		  teamB.classList.add('teamSelected');
+		  teamA.classList.remove('teamSelected');
+				}
+
+	idequipe.value = x;
+}
+
+</script>
+
+ {% endblock %}
+
+
+{% endblock %} 

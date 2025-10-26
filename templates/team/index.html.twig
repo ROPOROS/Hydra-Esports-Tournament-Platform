@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Team index{% endblock %}
+
+
+{% block body %}
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+<div style="margin-bottom: 5em; margin-top: 5em;">
+
+    <h1 style="margin-left:50px">Team index</h1>
+
+    <table class="table"style="color:#F9F9F9">
+        <thead>
+            <tr>
+               {# <th>Id</th>#}
+                <th>Logo</th>
+                <th>Nom</th>
+                <th>Wallet</th>
+                <th>Capitaine</th>
+                <th>Pays</th>
+                <th>Date de création</th>
+                <th>Joueurs</th>
+                {% if app.user.id is defined and app.user.type=="admin" %}
+                <th>actions</th>
+               {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+
+
+               {# <td>{{ team.id }}</td>#}
+
+               {# <td>{{ team.logo }}</td> #}
+
+                <td><a href="/team/{{team.id}}"><img src="{{asset('/assets/img/team/' ~ team.logo)}}" alt=""style="width: 200px;height:200px"></a></td>
+                <td>{{ team.nom }}</td>
+                <td>{{ team.wallet }}</td>
+                <td>{{ team.captainid.prenom }} {{ team.captainid.nom }}</td>
+                <td>{{ team.pays }}</td>
+                <td>{{ team.datecreation ? team.datecreation|date('Y-m-d') : '' }}</td>
+                <td>
+                {% for p in team.players %}
+                {{ p.prenom }} {{ p.nom }}<br>
+                {% endfor %}
+                </td>
+                {% if app.user.id is defined and app.user.type=="admin" %}
+                <td>
+                    <a href="{{ path('app_team_show', {'id': team.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Z" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><circle cx="128" cy="128" r="32" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle></svg></a>
+                    <a href="{{ path('app_team_edit', {'id': team.id}) }}">edit</a>
+                </td>
+                {% endif  %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(teams) }}
+    </div>
+
+    <a href="{{ path('app_team_new') }}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>     Ajouter Une Equipe</a>
+    <a href="{{ path('app_donation_new') }}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>     Offrir un Don</a>
+    {% block footer%}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

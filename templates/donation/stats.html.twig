@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+{% block stylesheets  %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
+          integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w=="
+           crossorigin="anonymous">
+
+{% endblock %}
+
+
+
+{% block body %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+
+    <div>
+        <canvas id="myChart"></canvas>
+
+    </div>
+
+<div style="position:fixed;top:50%;right:10px;display:flex;flex-direction:column;opacity:0.8">
+    <button onclick="functionTeam()" id="team" >Team </button>
+    <button onclick="functionDonation()" id="donation" >Donation
+</div>
+    </button>
+
+    {%  block custom_javascript %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
+                integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
+                crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            var data=[];
+
+            var config = {
+                type: 'bar',
+                data: data,
+                options: {}
+            };
+
+            var myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+
+            document.getElementById("donation").onclick = function() {functionDonation()};
+            function functionDonation() {
+
+
+                var dates = [{% for donation in donation %}
+                    '{{ donation.datedon ? donation.datedon|date('Y-m-d') : '' }}',
+                    {% endfor %}
+                ]
+
+
+                var montants =[{% for donation in donation %}
+                    '{{ donation.1}}',
+                    {% endfor %}
+                ]
+
+
+
+                var data = {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Donation per day',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: montants,
+                    }]
+
+                };
+
+                myChart.data=data;
+                myChart.update();
+            }
+
+            document.getElementById("team").onclick = function() {functionTeam()};
+            function functionTeam() {
+
+                var labels =[ {% for team in teams %}
+                    '{{ team.nom }}',
+                    {% endfor %}
+                ]
+
+                var wallets = [ {% for team in teams %}
+                    '{{ team.wallet }}',
+                    {% endfor %}
+                ]
+
+                 var data = {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Teams wallets',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: wallets,
+                    }]
+
+                };
+
+
+
+
+                myChart.data=data;
+                myChart.update();
+            }
+
+
+
+            {#
+            console.log("test", labels)
+
+            const data = {
+                labels: dates,
+                datasets: [{
+                    label: 'Teams wallets',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: montants,
+                }]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {}
+            };
+
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );  #}
+        </script>
+
+
+    {% endblock %}
+{% endblock %}

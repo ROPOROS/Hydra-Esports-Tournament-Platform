@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+    <!-- shop-area -->
+    <section class="shop-area pt-115 pb-60">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-title title-style-two text-center mb-70">
+                        <h2 class="title">A la une</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-4 col-lg-5 col-md-6 col-sm">
+                    <div class="shop-item mb-60">
+                        <div class="shop-thumb">
+                            <img src=" {{ asset('assets/img/shop_wrap_img.png') }}" alt="" class="shape" />
+                            <a
+                                    href="https://themepixer.com/html/halda/halda/shop-details.html"
+                            ><img style="height: 65%; width: 65%; "src=" {{ asset('assets/img/'~res.image) }}" alt="" class="shop-img"
+                                /></a>
+                            <div class="shop-date">
+                                <span>Top Trending</span>
+                            </div>
+                            <div class="shop-share">
+                                <a
+                                        href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                ><i class="fas fa-share-alt"></i
+                                    ></a>
+                            </div>
+                        </div>
+                        <div class="shop-content">
+                            <div class="shop-content-top">
+                                <div class="shop-title">
+                                    <h5 class="title">
+                                        <a
+                                                href="{{ path('app_produit_show', {'id': res.id}) }}"
+                                        >{{ res.nom }}</a
+                                        >
+                                    </h5>
+                                    <p>{{ res.type }}</p>
+                                </div>
+                                <div class="price">
+                                    <span>{{ res.prix }} DT</span>
+                                </div>
+                            </div>
+                            <div class="shop-content-bottom">
+                                <div class="shop-btn">
+                                    <a
+                                            href="{{ path('app_commande_new', {'id': res.id}) }}"
+                                            class="btn"
+                                    ><i class="fas fa-plus"></i>Ajouter au panier</a>
+                                </div>
+                                <div class="shop-wishlist">
+                                    <a
+                                            href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                    ><i class="far fa-heart"></i
+                                        ></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-6 col-sm">
+                    <div class="shop-item mb-60">
+                        <div class="shop-thumb">
+                            <img src=" {{ asset('assets/img/shop_wrap_img.png') }}" alt="" class="shape" />
+                            <a
+                                    href="https://themepixer.com/html/halda/halda/shop-details.html"
+                            ><img style="height: 65%; width: 65%;" src=" {{ asset('assets/img/'~res1.image) }}" alt="" class="shop-img"
+                                /></a>
+                            <div class="shop-date">
+                                <span>Less Trending</span>
+                            </div>
+                            <div class="shop-share">
+                                <a
+                                        href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                ><i class="fas fa-share-alt"></i
+                                    ></a>
+                            </div>
+                        </div>
+                        <div class="shop-content">
+                            <div class="shop-content-top">
+                                <div class="shop-title">
+                                    <h5 class="title">
+                                        <a
+                                                href="{{ path('app_produit_show', {'id': res1.id}) }}"
+                                        >{{ res1.nom }}</a>
+                                    </h5>
+                                    <p>{{ res1.type }}</p>
+                                </div>
+                                <div class="price">
+                                    <span>{{ res1.prix }} DT</span>
+                                </div>
+                            </div>
+                            <div class="shop-content-bottom">
+                                <div class="shop-btn">
+                                    <a
+                                            href="{{ path('app_commande_new', {'id': res1.id}) }}"
+                                            class="btn"
+                                    ><i class="fas fa-plus"></i>Ajouter au panier</a>
+                                </div>
+                                <div class="shop-wishlist">
+                                    <a
+                                            href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                    ><i class="far fa-heart"></i
+                                        ></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="section-title title-style-two text-center mb-70">
+                            <h2 class="title">Shop</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    {% for produit in produit %}
+                        <div class="col-xl-4 col-lg-5 col-md-6 col-sm">
+                            <div class="shop-item mb-60">
+                                <div class="shop-thumb">
+                                    <img src=" {{ asset('assets/img/shop_wrap_img.png') }}" alt="" class="shape" />
+                                    <a
+                                            href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                    ><img style="height: 65%; width: 65%" src=" {{ asset('assets/img/'~produit.image) }}" alt="" class="shop-img"
+                                        /></a>
+                                    <div class="shop-share">
+                                        <a
+                                                href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                        ><i class="fas fa-share-alt"></i
+                                            ></a>
+                                    </div>
+                                </div>
+                                <div class="shop-content">
+                                    <div class="shop-content-top">
+                                        <div class="shop-title">
+                                            <h5 class="title">
+                                                <a
+                                                        href="{{ path('app_produit_show', {'id': produit.id}) }}"
+                                                >{{ produit.nom }}</a
+                                                >
+                                            </h5>
+                                            <p>{{ produit.type }}</p>
+                                        </div>
+                                        <div class="price">
+                                            <span>{{ produit.prix }} DT</span>
+                                        </div>
+                                    </div>
+                                    <div class="shop-content-bottom">
+                                        <div class="shop-btn">
+                                            <a
+                                                    href="{{ path('app_commande_new', {'id': produit.id}) }}"
+                                                    class="btn"
+                                            ><i class="fas fa-plus"></i>Ajouter au panier</a>
+                                        </div>
+                                        <div class="shop-wishlist">
+                                            <a
+                                                    href="https://themepixer.com/html/halda/halda/shop-details.html"
+                                            ><i class="far fa-heart"></i
+                                                ></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+    </section>
+
+    <!-- shop-area-end -->
+
+    {% block footer%}
+        {{ parent() }}
+    {% endblock %}
+    {% block js %}
+	{{ parent() }}
+{% endblock %}
+{% endblock %}
+
+

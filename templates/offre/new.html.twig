@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Offre{% endblock %}
+
+{% block body %}
+
+    {% block header  %}
+        {{ parent() }}
+    {% endblock %}
+
+<div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;" >
+
+<h1>Ajouter Une Offre</h1>
+
+    {{ include('offre/_form.html.twig') }}
+
+    <a href="{{ path('offre_showf') }}">back to list</a>
+
+</div>
+    {% block footer  %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

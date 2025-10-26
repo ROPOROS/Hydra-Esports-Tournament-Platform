@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Mon Compte{% endblock %}
+
+{% block body %}
+    <div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;" >
+        <div class="section-title title-style-two text-center mb-60">
+            <h2 class="title">Modifier <span>mon</span> Profil</h2>
+        </div>
+
+        {{ include('joueur/_form.html.twig', {'button_label': 'Confirmer'}) }}
+
+
+    </div>
+
+
+{#    <a href="{{ path('app_joueur_index') }}">back to list</a>#}
+
+{% endblock %}

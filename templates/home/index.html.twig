@@ -1,0 +1,293 @@
+{% extends 'base.html.twig' %}
+
+
+{% block tmatchs %}
+
+{% if app.user.username is defined and app.user.type != "admin" %}
+
+{% for message in app.flashes('info') %}
+        <div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show ">
+
+       <i class="start-icon far fa-check-circle faa-tada animated"></i>
+          <strong class="font__weight-semibold">{{ message }}!</strong> 
+        </div>
+
+    {% endfor %}
+	<!-- live-stream-area -->
+	<section class="live-stream-area live-stream-bg pb-120 pt-120">
+		<div class="container">
+			<div class="live-stream-wrap">
+				<div class="row">
+					<div class="col-xl-4">
+						<div class="live-stream-content">
+							<div class="live-stream-icon">
+								<img src=" {{ asset('assets/img/live-stream-icon.png') }}" alt=""/>
+							</div>
+							<div class="section-title">
+								<h4 class="sub-title">plusieurs façons de</h4>
+								<h2 class="title">diffusion en direct</h2>
+							</div>
+							<p>
+								Lpsum dolor sit amet, consectetur adipiscing elit, sed labore et
+																																																																																																	                  dolore magna aliqua.
+							</p>
+						</div>
+					</div>
+					<div class="col-xl-8">
+						<div class="live-videos-wrapper">
+							<div class="live-video-active slick-slider">
+								<div></div>
+
+								<div class="live-video-item">
+									<div class="video">
+										<video class="liveVideo" autoplay="" muted="" loop="">
+											<source src="./assets/img/TWIES_Logo_Anim_AdobeCreativeCloudExpress.mp4" type="video/mp4"/>
+										</video>
+									</div>
+									<div class="coming-time" data-countdown="2022/5/29">
+										<div class="time-count day">
+											<span>12</span>:</div>
+										<div class="time-count hour">
+											<span>10</span>:</div>
+										<div class="time-count min">
+											<span>02</span>:</div>
+										<div class="time-count sec">
+											<span>48</span>
+										</div>
+									</div>
+									<a href="https://www.twitch.tv/videos/1261623067" target="_blank" class="btn" tabindex="0">regarder en direct<i class="fas fa-play-circle"></i>
+									</a>
+								</div>
+							</div>
+
+							<div class="live-video-navs slick-slider">
+								{% for tmatch in tmatchs %}
+									<div class="video-nav-item">
+										<div class="thumb">
+											<img style="height: 100px" src=" {{ asset('assets/img/jeux/' ~ tmatch.idtournoi.idjeu.image  ~ '/main.png') }}" alt="" class="show-modal youcantbeton" id="{{ tmatch.id }}" 
+											ondblclick="openModal(this);"
+											data-trigger = "click" 
+											title = "vous ne pouvez pas parier sur ce match, il a déjà commencé"
+											data-toggle = "tooltip" 
+											data-placement="top"
+											/>
+										</div>
+										<div class="content">
+											<div class="matchcontent">
+												<h4 class="title">{{ tmatch.idequipea.nom }}</h4>
+
+												<h4 class="title">{{ tmatch.idequipeb.nom }}</h4>
+											</div>
+										</div>
+
+									</div>
+
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modaly hidden">
+				<div class="my-match-box-wrap fadeInDown" data-wow-delay=".4s" {# style=" visibility: visible; animation-delay: 0.4s; animation-name: fadeInDown; " #}>
+					<button class="close-modal"></button>
+					<img src="assets/img/my_match_box.png" alt="" class="match-box-bg"/>
+					<ul>
+						<li>
+							<div class="my-match-team">
+								<div class="team-one" onclick="selectTeam('A')" >
+									<div class="box">
+									      <span></span>
+												<span></span>
+												<span></span>
+												<span></span>
+											<div class="contentteam">
+											<img src="assets/img/logo.png" class = "teamSelected" alt=""/>
+											</div>
+									</div>
+								</div>
+								<div class="vs">
+									<img src="assets/img/match_vs02.png" alt=""/>
+								</div>
+								<div class="team-one" onclick="selectTeam('B')">
+									<img src="assets/img/my_m²atch_clan04.png" alt=""/>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="my-match-info">
+								<a href="https://www.twitch.tv/shroud" target="_blank" class="live-btn">Live MATCHES</a>
+								<h5 class="tournamentName">
+									xDD
+								</h5>
+								<span class="matchdate">10th Mar 2022.</span>
+							</div>
+						</li>
+						<li>
+				 {{ include('pari/_form.html.twig') }}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="overlay hidden"></div>
+		</div>
+<br><br>
+ {% if error !=0  %}
+
+        <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show " style="margin: 0 278px ;">
+
+       <i class="start-icon far fa-check-circle faa-tada animated"></i>
+
+       {% if error==1  %}
+	<strong class="font__weight-semibold">Ajout invalide!</strong> Le montant doit être entre 1 et 999.
+{% endif %}
+
+       {% if error==2 %}
+	<strong class="font__weight-semibold">Ajout invalide!</strong> Vous n'avez pas assez de HYDRACOINS pour parier, vous devez recharger votre portefeuille
+{% endif %}
+       {% if error==3 %}
+	<strong class="font__weight-semibold">Ajout invalide!</strong> Code de double authentification erroné!
+{% endif %}
+     
+        </div>
+        {% endif %}
+		
+	</section>
+	{% endif %}
+	<!-- live-stream-area-end -->
+{% endblock %}
+
+
+{% block js %}
+	{{ parent() }}
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script>
+
+const modal = document.querySelector(".modaly");
+const overlay = document.querySelector(".overlay");
+const btnCloseModal = document.querySelector(".close-modal");
+const btnsOpenModal = document.querySelectorAll(".show-modal");
+
+var tmatchs = [];
+{% for t in tmatchs %}tmatchs.push({
+"tmatch": {
+"id": '{{ t.id }}',
+"tournoiNom": '{{ t.idTournoi.nom }}',
+"logoTeamA": '{{ t.idequipea.logo }}',
+"logoTeamB": '{{ t.idequipeb.logo }}',
+"idTeamA": '{{ t.idequipea.ID }}',
+"idTeamB": '{{ t.idequipeb.ID }}',
+"etatMatch": '{{ t.etat }}',
+"matchdate": '{{ t.datematch | date("Y/m/d") }}'
+}
+});
+{% endfor %}
+
+var tmatch;
+var container = document.getElementsByClassName("my-match-box-wrap")[0];
+var teamA = container.getElementsByClassName('team-one')[0].getElementsByTagName("img")[0];
+var teamB = container.getElementsByClassName('team-one')[1].getElementsByTagName("img")[0];
+var tournoi = container.getElementsByClassName('tournamentName')[0];
+var datematch = container.getElementsByClassName('matchdate')[0];
+var idequipe = document.getElementById('idequipe');
+var idmatch = document.getElementById('idmatch');
+var youcantbeton = document.getElementsByClassName("youcantbeton")[0];
+
+
+
+function openModal(element) {
+
+
+for (var i = 0; i < tmatchs.length; i++) {
+if (tmatchs[i].tmatch.id == element.id) {
+tmatch = tmatchs[i].tmatch;
+} }
+
+if (tmatch.etatMatch == "BetA" ) {
+
+modal.classList.remove("hidden");
+overlay.classList.remove("hidden");
+
+tournoi.innerHTML = tmatch.tournoiNom;
+teamA.src = "assets/img/team/" + tmatch.logoTeamA;
+teamB.src = "assets/img/team/" + tmatch.logoTeamB;
+datematch.innerHTML = tmatch.matchdate;
+idequipe.value = "A";
+idmatch.value = tmatch.id;
+
+}
+
+else {
+youcantbeton.setAttribute("data-toggle", "tooltip");
+youcantbeton.setAttribute("data-placement", "top");
+youcantbeton.setAttribute("title", "vous ne pouvez pas parier sur ce match, il a déjà commencé");
+youcantbeton.setAttribute("data-trigger", "click");
+}
+
+//anchortopari.href = "/pari/"+ tmatch.id + "/1";
+// console.log(teamB.src);
+};
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({delay: { "show": 500, 
+	"hide": 100 , 
+	"trigger" : 'click'
+	}})
+})
+
+
+
+
+function selectTeam(x){
+	let AorB;
+	if (x == "A")  
+	{
+		
+		teamA.classList.add('teamSelected');
+		teamB.classList.remove('teamSelected');
+
+	} 
+		else {
+		  teamB.classList.add('teamSelected');
+		  teamA.classList.remove('teamSelected');
+				}
+
+	idequipe.value = x;
+}
+
+const closeModal = function () {
+modal.classList.add("hidden");
+overlay.classList.add("hidden");
+};
+
+
+btnCloseModal.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", function (e) { // console.log(e.key);
+
+if (e.key === "Escape" && ! modal.classList.contains("hidden")) {
+closeModal();
+}
+});
+
+ $(document).ready(function(){
+          $(".alert").delay(6000).hide(300);
+    });
+
+		document.addEventListener("DOMContentLoaded", function(event) { 
+            var scrollpos = localStorage.getItem('scrollpos');
+            if (scrollpos) window.scrollTo(0, scrollpos);
+        });
+
+        window.onbeforeunload = function(e) {
+            localStorage.setItem('scrollpos', window.scrollY);
+        };
+	</script>
+
+{% endblock %}
+
+
+

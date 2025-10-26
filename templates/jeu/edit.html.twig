@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Jeu
+{% endblock %}
+
+{% block body %}
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	<div style="margin : 10rem 10rem;">
+
+		<a href="{{ path('jeu_show', {'id': jeu.id}) }}">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewbox="0 0 256 256">
+				<rect width="256" height="256" fill="none"></rect>
+				<line x1="216" y1="128" x2="40" y2="128" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+				<polyline points="112 56 40 128 112 200" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline>
+			</svg>
+			Retourner à la page précédente
+		</a>
+		{% if error !=0  %}
+
+	
+	<div class="errorDisplay" onclick= "closeWindow(event,this)">
+	<div>
+	<h1>
+	{% if error == 1  %}
+	Le nombre de joueurs nécessaire est négatif.
+	
+{% endif %}
+	</h1>
+	</div>
+	
+	</div>
+	<script>
+	function closeWindow(e,element)
+	{
+		if(element==e.target)
+		element.style.display='none';
+	}
+	</script>
+{% endif %}
+
+		<hr>
+
+		<h3>Modifier Jeu<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewbox="0 0 256 256">
+				<rect width="256" height="256" fill="none"></rect>
+				<polyline points="96 48 176 128 96 208" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline>
+			</svg>
+			</h3>
+
+		<br>
+		{{ include('jeu/_form.html.twig', {'button_label': 'Update'}) }}
+{% block js %}
+            {{ parent() }}
+        {% endblock %}
+	</div>
+	{% block footer %}
+		{{ parent() }}
+	{% endblock %}
+{% endblock %}

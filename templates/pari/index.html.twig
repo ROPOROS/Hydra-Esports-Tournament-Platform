@@ -1,0 +1,207 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pari index{% endblock %}
+
+{% block body %}
+
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+
+
+   <div style="margin : 10rem 10rem;">
+    <h4>Espace Admin <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>  Paris</h4>
+
+    <br>
+<br>
+
+ {% for message in app.flashes('info') %}
+
+        <div class="alert fade alert-simple alert-warning alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show ">
+
+       <i class="start-icon far fa-check-circle faa-tada animated"></i>
+          <strong class="font__weight-semibold">ALERT</strong> {{ message }}
+        </div>
+
+    {% endfor %}
+
+
+    <form method="post" action="{{ path('tri') }}">
+    <div style="display: flex; align-items:center; gap: 10px">
+
+        <div class="custom-select" style="width: 180px;">
+            <select class="form-control" name="storingby">
+                <option>trier par :</option>
+                <option >Email</option>
+                <option >Montant</option>
+            </select>
+        </div>
+
+        <div class="custom-select" style="width: 180px;">
+            <select class="form-control" name="type">
+                <option>Sélectionnez l'ordre</option>
+                <option >Croissant</option>
+                <option >Décroissant</option>
+            </select>
+        </div>
+        <button type="submit" class="button-24">Trier</button>
+    </div>
+    </form>
+
+    <hr>
+
+    <table class="table" style=" color : #F9F9F9;">
+        <thead>
+            <tr>
+                <th>Joueur</th>
+                <th>Tournoi</th>
+                <th>Match</th>
+                <th>Montant</th>
+                <th>Paris Sur Equipe</th>
+                <th>Resultat</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for pari in paris %}
+            <tr>
+                <td>{{ pari.iduser.mail }}</td>
+                <td>{{ pari.idmatch.idtournoi.nom }}</td>
+                <td>{{ pari.idmatch.idequipea.nom }} vs {{ pari.idmatch.idequipeb.nom }} </td>
+                <td>{{ pari.montant }}</td>
+                {% if pari.idequipe == "A" %}
+                <td>{{ pari.idmatch.idequipea.nom }}</td>
+                {% else %}
+                <td>{{ pari.idmatch.idequipeb.nom }}</td>
+                {% endif %}
+        
+                
+                {% if pari.idequipe == pari.idmatch.score %}
+                <td><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#24f106" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M56,56v55.1c0,39.7,31.8,72.6,71.5,72.9A72,72,0,0,0,200,112V56a8,8,0,0,0-8-8H64A8,8,0,0,0,56,56Z" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="96" y1="224" x2="160" y2="224" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="184" x2="128" y2="224" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M198.2,128H208a32,32,0,0,0,32-32V80a8,8,0,0,0-8-8H200" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M58,128H47.9a32,32,0,0,1-32-32V80a8,8,0,0,1,8-8h32" fill="none" stroke="#24f106" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg></td>
+                {% elseif pari.idmatch.score == "nD" %}
+                <td>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#cfb34f" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="69.3" y1="84" x2="186.2" y2="84" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M128,128,67.2,82.4A8.1,8.1,0,0,1,64,76V40a8,8,0,0,1,8-8H184a8,8,0,0,1,8,8V75.6a8.1,8.1,0,0,1-3.2,6.4L128,128h0" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M128,128,67.2,173.6A8.1,8.1,0,0,0,64,180v36a8,8,0,0,0,8,8H184a8,8,0,0,0,8-8V180.4a8.1,8.1,0,0,0-3.2-6.4L128,128h0" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="128" y1="168" x2="128" y2="128" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+                </td>
+                {% else %}
+                <td>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+                </td>
+                {% endif %}
+                 <td>
+                    <a href="{{ path('app_pari_show', {'iduser': pari.iduser.id, 'idmatch': pari.idmatch.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Z" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><circle cx="128" cy="128" r="32" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle></svg></a>
+                    {# <a href="{{ path('app_pari_edit', {'iduser': pari.iduser}) }}">edit</a> #}
+                </td>
+            
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<br>
+<div>
+    {{ knp_pagination_render(paris) }}
+</div>
+    {# <a href="{{ path('app_pari_new') }}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>     Create new</a> #}
+    </div>
+    
+        {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% block js %}
+        {{ parent() }}
+    {% endblock %}
+
+<script>
+
+     $(document).ready(function(){
+          $(".alert").delay(4000).hide(300);
+    });
+
+    var x, i, j, l, ll, selElmnt, a, b, c;
+/*look for any elements with the class "custom-select":*/
+x = document.getElementsByClassName("custom-select");
+l = x.length;
+for (i = 0; i < l; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  ll = selElmnt.length;
+  /*for each element, create a new DIV that will act as the selected item:*/
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /*for each element, create a new DIV that will contain the option list:*/
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < ll; j++) {
+    /*for each option in the original select element,
+    create a new DIV that will act as an option item:*/
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        /*when an item is clicked, update the original select box,
+        and the selected item:*/
+        var y, i, k, s, h, sl, yl;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        sl = s.length;
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < sl; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            yl = y.length;
+            for (k = 0; k < yl; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+      /*when the select box is clicked, close any other select boxes,
+      and open/close the current select box:*/
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+}
+function closeAllSelect(elmnt) {
+  /*a function that will close all select boxes in the document,
+  except the current select box:*/
+  var x, y, i, xl, yl, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  xl = x.length;
+  yl = y.length;
+  for (i = 0; i < yl; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < xl; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+/*if the user clicks anywhere outside the select box,
+then close all select boxes:*/
+document.addEventListener("click", closeAllSelect);
+
+</script>
+
+
+{% endblock %}

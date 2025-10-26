@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Donation{% endblock %}
+
+{% block body %}
+    <h1>Donation</h1>
+
+    <table class="table"style="color:#F9F9F9">
+        <tbody>
+           <tr>
+                <th>Id</th>
+                <td>{{ donation.id }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ donation.montant }}</td>
+            </tr>
+            <tr>
+                <th>Iduser</th>
+                <td>{{ donation.iduser }}</td>
+            </tr>
+            <tr>
+                <th>Idteam</th>
+                <td>{{ donation.idteam }}</td>
+            </tr>
+            <tr>
+                <th>Datedon</th>
+                <td>{{ donation.datedon ? donation.datedon|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_donation_index') }}">back to list</a>
+
+    <a href="{{ path('app_donation_edit', {'id': donation.id}) }}">edit</a>
+
+    {{ include('donation/_delete_form.html.twig') }}
+
+{% endblock %}
+
+
+{# {% block body %}
+
+    <div class="robust-content content container-fluid">
+        <div id="div_chart"></div>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        {{ gc_draw(areachart, 'div_chart') }}
+
+
+    </div>
+
+
+{% endblock %}
+#}

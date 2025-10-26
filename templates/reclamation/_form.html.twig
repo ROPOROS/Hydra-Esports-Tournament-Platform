@@ -1,0 +1,51 @@
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+<div>
+<div style="display: flex; align-items:initial; justify-content: center; flex-direction: column;" class="contact-form">
+
+    <div class="form-grp" >
+
+        {{ form_label(form.sujet,"Sujet") }}
+        {{ form_widget(form.sujet,{'attr': {'placeholder': 'Sujet' , 'class':'inputraed'}  }) }}
+        {{ form_errors(form.sujet) }}
+
+    </div>
+
+    <div class="form-grp">
+        {{ form_label(form.description,"Description :") }}
+        {{ form_widget(form.description,{'attr': {'placeholder': 'Description' }  }) }}
+        {{ form_errors(form.description) }}</div>
+
+    <div class="form-grp">
+        {{ form_label(form.imageFile,"Image :") }}
+        {{ form_widget(form.imageFile) }}
+       {{ form_errors(form.imageFile) }}
+    </div>
+
+
+        <div class="form-grp">
+        {{ form_label(form.email,"Email :") }}
+        {{ form_widget(form.email,{'attr': {'placeholder': 'Email' }  }) }}
+        {{ form_errors(form.email) }}
+        </div>
+
+            <div class="form-grp">
+        {{ form_label(form.numeroTel ,"Numero :") }}
+        {{ form_widget(form.numeroTel,{'attr': {'placeholder': 'Phone' }  }) }}
+        {{ form_errors(form.numeroTel) }}
+            </div>
+
+                <div class="form-grp" >
+        {{ form_label(form.object ,"Object :") }}
+        {{ form_widget(form.object) }}
+        {{ form_errors(form.object) }}
+                </div>
+</div>
+{#    <tr>#}
+{#        <td>{{ form_label(form.Submit) }}</td>#}
+{#        <td>{{ form_widget(form.Submit) }}<tr>#}
+{#    </tr>#}
+    <button class="btn" type="submit" style="">Submit</button>
+
+
+</div>
+{{ form_end(form) }}

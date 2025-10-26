@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+
+    <style>
+        h1 {text-align: center;}
+        /*p {text-align: center;}*/
+        /*div {text-align: center;}*/
+    </style>
+
+    <div>
+
+    <h1 >Espace Admin Reclamation</h1>
+
+    </div>
+
+
+    <div style="margin : 10rem 10rem;">
+
+        <table class="table" style="color : #F9F9F9;">
+
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sujet</th>
+                <th>Description</th>
+                <th>Attachement</th>
+                <th>Email</th>
+                <th>NumeroTel</th>
+                <th>Status</th>
+                <th>Object</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reclamation in reclamations %}
+                <tr>
+                                    <td>{{ reclamation.id }}</td>
+                    <td>{{ reclamation.sujet }}</td>
+                    <td>{{ reclamation.description }}</td>
+                    <td> <img src="{{ asset('uploads/images/products/' ~ reclamation.getAttachement())  }}" height="100" width="100"></td>
+
+                    <td>{{ reclamation.email }}</td>
+                    <td>{{ reclamation.numeroTel }}</td>
+                    <td>{{ reclamation.status }}</td>
+                    <td>{{ reclamation.object }}</td>
+
+
+                    <td>
+                        <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,56C48,56,16,128,16,128s32,72,112,72,112-72,112-72S208,56,128,56Z" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><circle cx="128" cy="128" r="32" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle></svg></a>
+
+                        </a>
+                                            <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#e3e3e3" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="44" y1="156" x2="100" y2="212" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M92.7,216H48a8,8,0,0,1-8-8V163.3a7.9,7.9,0,0,1,2.3-5.6l120-120a8,8,0,0,1,11.4,0l44.6,44.6a8,8,0,0,1,0,11.4l-120,120A7.9,7.9,0,0,1,92.7,216Z" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="136" y1="64" x2="192" y2="120" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="164" y1="92" x2="72" y2="184" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></a>
+                                        </td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+        <a href="{{ path('stats') }}">See Stats</a>
+
+
+
+    </div>
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

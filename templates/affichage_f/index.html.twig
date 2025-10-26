@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AffichageFController!{% endblock %}
+
+{% block body %}
+    {#<style>#}
+    {#    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }#}
+    {#    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }#}
+    {#</style>#}
+
+    {#<div class="example-wrapper">#}
+    {#    <h1>Hello {{ controller_name }}! ✅</h1>#}
+
+    {#    This friendly message is coming from:#}
+    {#    <ul>#}
+    {#        <li>Your controller at <code><a href="{{ 'C:/Users/ROPOROS/OneDrive/Desktop/Hydra-Web-main/src/Controller/AffichageFController.php'|file_link(0) }}">src/Controller/AffichageFController.php</a></code></li>#}
+    {#        <li>Your template at <code><a href="{{ 'C:/Users/ROPOROS/OneDrive/Desktop/Hydra-Web-main/templates/affichage_f/index.html.twig'|file_link(0) }}">templates/affichage_f/index.html.twig</a></code></li>#}
+    {#    </ul>#}
+    {#</div>#}
+    {% for pp in news %}
+        <tr>
+            <th>SujetN</th>
+            <td>{{ news.sujetN }}</td>
+        </tr>
+        <tr>
+            <th>Text</th>
+            <td>{{ news.text }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td> <img src="{{ asset('uploads/images/products/' ~ news.getImage())  }}" height="100" width="100"></td>
+
+        </tr>
+        <tr>
+            <th>DateC</th>
+            <td>{{ news.dateC ? news.dateC|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>DateF</th>
+            <td>{{ news.dateF ? news.dateF|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Idjeu</th>
+            <td>{{ news.idjeu.nom }}</td>
+        </tr>
+
+    {% endfor %}
+{% endblock %}

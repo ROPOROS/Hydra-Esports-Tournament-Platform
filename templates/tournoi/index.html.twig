@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournois
+{% endblock %}
+
+{% block body %}
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	<div style="margin : 10rem 10rem;">
+		<h4>
+		{% if permission == "admin" %}
+		Espace Admin
+		{% else %}
+		Accueil
+		{% endif %}
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewbox="0 0 256 256">
+				<rect width="256" height="256" fill="none"></rect>
+				<polyline points="96 48 176 128 96 208" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline>
+			</svg>
+			Tournois</h4>
+		<br>
+
+		<label class="label-form" style="width:30%;">
+		<select onchange="redirectMe(this);" style="margin-bottom:32px;">
+			<option value="null" > -- Choisissez le Jeu -- </option>
+			<option value="null" > Tous les jeux </option>
+			{% for j in jeux %}
+				<option value="{{j.id}}"
+				{% if j.id == idJeu %}
+				selected
+				{% endif %}
+				 > {{j.nom}} </option>
+			{% endfor %}
+		<select>
+		
+		</label>
+
+		<script>
+		function redirectMe(element)
+		{
+			let path =window.location.href;
+			if(!path.includes("?id="))
+				window.location.href= path + "?id="+element.value;
+			else{
+				let secondPart=path.split("?id=")[1];
+				console.log(secondPart);
+				window.location.href = path.replace("?id="+secondPart,"?id="+element.value);
+			}
+    		
+
+		}
+		</script>
+
+		{% if error is defined and error !=0  %}
+
+	
+	<div class="errorDisplay" onclick= "closeWindow(event,this)">
+	<div>
+	<h1>
+	{% if error==1  %}
+	Le tournoi requiert au moins 4 équipes pour démarrer.
+	{% elseif error==2 %}
+	Les matchs de la phase {{tournoiPhase}} ne sont pas finis.
+	{% elseif error==3 %}
+	Le nombre d'équipes doit être un multiple de 4.
+	{% elseif error==4 %}
+	Vous n'êtes pas à la tête d'une équipe.
+{% endif %}
+	</h1>
+	</div>
+	
+	</div>
+	<script>
+	function closeWindow(e,element)
+	{
+		if(element==e.target)
+		element.style.display='none';
+	}
+	</script>
+{% endif %}
+		
+
+
+		{% for message in app.flashes('info') %}
+			<div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show ">
+
+				<i class="start-icon far fa-check-circle faa-tada animated"></i>
+				<strong class="font__weight-semibold">{{ message }}!</strong>
+				vérifier le tableau pour consulter le match
+			</div>
+
+		{% endfor %}
+{% if erreur is defined %}
+		<h1 class="hello">{{erreur}}</h1>
+{% endif %}
+		<div class="container">
+			<div class="row ">
+
+				{% for tournoi in tournois %}
+				
+					<div class="col-xl-6 col-lg-4 col-md-6 col-sm-9">
+						<div class="squad-item">
+							<div class="squad-thumb">
+								<a 
+								{% if permission == "admin" %}
+								href="/tournoi/{{tournoi.id}}"
+								{% else %}
+								href="/tournoi/{{tournoi.id}}/brackets"
+								{% endif %}
+								>
+								<img src="{{ asset('assets/img/jeux/'~tournoi.idjeu.image~'/card.png') }}" alt="">
+								</a>
+							</div>
+							<div class="squad-content">
+								<div class="squad-info">
+									<h4 class="title">
+									{% if permission == "admin" %}
+										<a href="/tournoi/{{tournoi.id}}">{{ tournoi.nom }}</a>
+										{% else %}
+										<a href="/tournoi/{{tournoi.id}}/brackets">{{ tournoi.nom }}</a>
+										{% endif %}
+									</h4>
+									<span>{{ tournoi.details }}</span>
+									{% if tournoi.phase == -1 %}
+									<div class="teamJoined">
+									<p>{{ tournoi.eq|length }}</p>
+									<img  src="{{ asset('assets/img/user-light.png') }}" alt="">
+									</div>
+									{% endif %}
+								</div>
+								<div class="squad-social">
+								
+								{% if tournoi.phase == -1  %}
+									{% if permission == "admin" %}
+										<div class="banner-btn">
+											<a
+											href="/tournoi/{{tournoi.id}}/start" 
+											class="btn">Démarrer
+											<i class="fas fa-play-circle" aria-hidden="true"></i>
+											</a>
+										</div>
+									{% else %}
+											{% if not((teamId ~ "#") in tournoi.equipes) and  permission == "captain" %}
+											<div class="banner-btn">
+												<a
+												href="/tournoi/{{tournoi.id}}/join/{{userId}}" 
+												class="btn">Rejoindre
+												<i class="fas fa-play-circle" aria-hidden="true"></i>
+												</a>
+											</div>
+											{% endif %}
+									{% endif %}
+									{% else %}
+										{% if tournoi.phase > 0 and (tournoi.eq|length) == 1%}
+											<div class="banner-btn">
+											Tournoi terminé
+											</div>
+										{% else %}
+										{% if permission == "admin" %}
+									<div class="banner-btn">
+										<a 
+										href="/tournoi/{{tournoi.id}}/next"
+										 class="btn">Phase suivante
+										<i class="fas fa-play-circle" aria-hidden="true"></i>
+										</a>
+									</div>
+										{% endif %}
+										{% endif %}
+								{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<h1>Pas de tournoi en cours</h1>
+				{% endfor %}
+					 {{knp_pagination_render(tournois) }}
+				{% if permission == "admin" %}
+				<div class="col-xl-6 col-lg-4 col-md-6 col-sm-9">
+					<div class="squad-item">
+						<div class="squad-thumb">
+							<a href="/tournoi/new" style="width: 30%;margin-inline: auto;display:flex;height:250px;align-items:center">
+							<img style="border:none;height:auto" src="{{ asset('assets/img/add.png') }}" alt="">
+							</a>
+						</div>
+						
+					</div>
+				</div>
+				{% endif %}
+
+			</div>
+		</div>
+	</section>
+
+{% block footer %}
+	{{ parent() }}
+{% endblock %}
+{% block js %}
+	{{ parent() }}
+{% endblock %}
+<script>
+	$(document).ready(function () {
+$(".alert").delay(4000).hide(300);
+});
+</script>{% endblock %}

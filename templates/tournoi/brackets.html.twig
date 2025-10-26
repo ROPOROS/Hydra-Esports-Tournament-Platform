@@ -1,0 +1,236 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Tournoi
+{% endblock %}
+
+{% block body %}
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+
+	{% set n = 0  %}
+	{% for t in tmatchs %}
+		{% if t.phase == 0 %}
+			{% set n=n+1 %}
+		{% endif %}
+	{% endfor %}
+	{% set n1 = n  %}
+	{% set width = 200 %}
+	{% set height = 100 %}
+	{% set lineX = 100 %}
+	{% set lineY = 75 %}
+
+	{% set padding = 100 %}
+	{% set marginX = 200 %}
+	{% set marginY = 50 %}
+
+	{% set container = ( n * height ) + (( n - 1) * marginY ) - (height / 2) %}
+
+
+	<div style="margin : 10rem 10rem;">
+		<a href="{{ path('tournoi_show', {'id': tournoi.id}) }}">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewbox="0 0 256 256">
+				<rect width="256" height="256" fill="none"></rect>
+				<line x1="216" y1="128" x2="40" y2="128" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+				<polyline points="112 56 40 128 112 200" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline>
+			</svg>
+			Retourner à la page précédente
+		</a>
+
+		<hr>
+
+		<h3>Tournoi<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewbox="0 0 256 256">
+				<rect width="256" height="256" fill="none"></rect>
+				<polyline points="96 48 176 128 96 208" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline>
+			</svg>
+			{{ tournoi.nom }}
+		</h3>
+		<br>
+
+		<div class="containers" id="myBracketPaths">
+			<svg style="width: 100%;height:{{container}}px;margin-top:{{(height / 2)}}px" class="brackets">
+
+				{% for i in 0..(n+1) %}
+					<path d=""></path>
+				{% endfor %}
+
+			</svg>
+			<div class="phases">
+				{% set index =0 %}
+				{% for j in 0..5 %}
+					{% if n>0 %}
+						<div class="phase">
+							{% for i in 1..n %}
+								<div class="match">
+									<div class="team">
+									<span>
+									{{ tmatchs[index].idEquipeA }}
+								
+									{% if index == (tmatchs|length -1) and tmatchs[index].score !="nD" %}
+										{% if tmatchs[index].score =="A"  %}
+										<i class="fa-solid fa-crown"></i>
+										{% else %}
+										<i class="fa-solid fa-face-sad-cry"></i>
+										{% endif %}
+									{% endif %}
+									</span>
+									</div>
+									<div class="team">
+									<span>
+									{{ tmatchs[index].idEquipeB }}
+									{% if index == (tmatchs|length -1) and tmatchs[index].score !="nD"  %}
+										{% if tmatchs[index].score =="B"  %}
+										<i class="fa-solid fa-crown"></i>
+										{% else %}
+										<i class="fa-solid fa-face-sad-cry"></i>
+										{% endif %}
+									{% endif %}
+									</span>
+									</div>
+									
+								</div>
+								{% set index = index + 1 %}
+							{% endfor %}
+						</div>
+                        {% set n =(n/2)|round(0,'floor') %}
+					{% endif %}
+				{% endfor %}
+
+
+			</div>
+		</div>
+
+		<style>
+		:root
+		{
+			--padding: 0;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		.containers {
+			height: 2000px;
+			width: calc(100vw -(2 * var(--padding)));
+			position: relative;
+			padding: var(--padding);
+		}
+
+		path {
+			stroke: #d53235;
+			stroke-width: 2;
+			fill: none;
+		}
+
+		.phases {
+			display: flex;
+			width: 100%;
+			position: absolute;
+			top: var(--padding);
+			left: var(--padding);
+			gap: {{marginX}}px;
+		}
+
+		.phase {
+			display: flex;
+			flex-direction: column;
+			gap: {{marginY}}px;
+		}
+
+		.phase:nth-child(2) {
+			position: relative;
+			justify-content: space-around;
+
+		}
+
+
+		.phase:nth-child(3) {
+			position: relative;
+			justify-content: space-around;
+		}
+
+		.match {
+			width: {{width}}px;
+			height: {{height}}px;
+			z-index: 999;
+			border: 1px black solid;
+			display: flex;
+			flex-direction: column;
+			box-shadow:0 0 5px black;
+			background-color:#2d2c2ced;
+			z-index:0;
+		}
+		
+		.team {
+			border: 1px black solid;
+			height: 50%;
+			display:flex;
+			justify-content: center;
+    		align-items: center;
+			
+		}
+		.team span{
+			letter-spacing:2px;
+			font-weight:600;
+			font-family: 'Lato', sans-serif;
+			color:white;
+		}
+		.fa-crown{
+			color:#e8a102;
+		}
+		.fa-face-sad-cry{
+			color:#adb5bd;
+		}
+	</style>
+	<script>
+	
+		var step = 0;
+var paths = document.getElementById("myBracketPaths").getElementsByTagName("path");
+var height = {{ height }};
+var width = {{ width }};
+var margin = {{ marginY }};
+var i = 0;
+function draw(step, multiple) {
+	var parent = document.getElementsByClassName("phase")[step];
+	var children = parent.getElementsByClassName("match");
+	let j = 0;
+	for (; j < children.length;) {
+		element = children[j];
+		let path = "M " + width * (1 + (step * 2)) + " " + element.offsetTop + " l 100 0 l 0 " + ( (margin + height) * multiple );
+		paths[i++].setAttribute("d", path);
+
+		j++;
+		element = children[j];
+		let path2 = "M " + width * (1 + (step * 2)) + " " + element.offsetTop + " l 100 0 l 0 -" + ( (margin + height) * multiple ) + " l 100 0";
+		paths[i++].setAttribute("d", path2);
+		j++;
+	}
+}
+let multiple = 0.5;
+let n = {{(n1)}};
+for(let k=1;k<n;k++){
+draw(step, multiple);
+step++;
+multiple *= 2;
+}
+//draw(step, multiple);
+
+	</script>
+
+
+	{% block js %}
+		{{ parent() }}
+	{% endblock %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+	<script>
+
+		$('.dateselect').datepicker({format: 'yyyy-mm-dd', orientation: 'bottom'});
+	</script>
+</div>
+{% block footer %}
+	{{ parent() }}
+{% endblock %}
+{% endblock %}

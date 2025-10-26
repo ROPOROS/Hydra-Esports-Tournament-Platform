@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Joueur{% endblock %}
+
+{% block body %}
+
+    {% block header  %}
+        {{ parent() }}
+    {% endblock %}
+
+    <div class="containerLogin">
+
+    <div class="part1">
+    <img src="../assets/img/gp.jpg" alt="imageforlogin" />
+</div>
+
+<div class="part2">
+
+    <div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;" >
+
+    <h1>S'inscrire</h1>
+
+    {{ include('joueur/_form.html.twig') }}
+
+</div>
+    </div>
+
+</div>
+
+
+{% endblock %}

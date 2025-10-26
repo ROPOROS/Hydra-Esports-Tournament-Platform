@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block stylesheet %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/helpers.esm.min.js" integrity="sha512-urWBnIv+F027G24xDNigjxvIuwnWlWy94W2yx77VkISKLzKSohOKOubMDhtEF6LZcEH7gctmNSpxDqIW/zMmUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block body %}
+
+    {% block header %}
+    {{ parent() }}
+        {% endblock %}
+
+    <div style="display: flex; align-items: center; justify-content: center; margin: 50px 0px;">
+
+    <div style="width: 400px; height: 400px;">
+    <canvas id="reclamation" width="10" height="10"></canvas>
+    </div>
+
+    </div>
+
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+{% block javaScript %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let reclamation = document.querySelector("#reclamation")
+        let reclamationGraph = new Chart(reclamation,{
+            type:"pie",
+            data:{
+                labels:["technical_issues", "report a player", "other"],
+                datasets:[{
+                    label:"repartision reclamation selon objects",
+                    data: [{{ technical_issues }},{{ reportaplayer }}, {{ other }}],
+                    backgroundColor:["red","white","gold"]
+
+
+                }]
+            }
+        })
+    </script>
+{% endblock %}
+{% endblock %}

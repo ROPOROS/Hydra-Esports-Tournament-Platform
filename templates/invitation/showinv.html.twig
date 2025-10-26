@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Joueur{% endblock %}
+
+{% block body %}
+
+    {% block header  %}
+        {{ parent() }}
+    {% endblock %}
+    <div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px;" >
+
+        <div class="section-title title-style-two text-center mb-60">
+            <h2 class="title">Voir <span>mon</span> Profil</h2>
+        </div>
+
+
+        {#    <input type="text" value="{{ app.user.nom }}" />#}
+        {#    <input type="text" value="{{ app.user.prenom }}" />#}
+        {#    <input type="text" value="{{ app.user.datenaissance ? app.user.datenaissance|date('d/m/Y') : '' }}" />#}
+        {#    <input type="text" value="{{ app.user.username }}" />#}
+        {#    <input type="text" value="{{ app.user.wallet }}" />#}
+        {#    <input type="text" value="{{ app.user.avertissement }}" />#}
+        <table class="table" style=" color : #F9F9F9;">
+            <tbody>
+            <tr>
+                <th>Nom Et Prénom</th>
+                <td>{{ app.user.nom }}    {{ app.user.prenom}}</td>
+            </tr>
+            <tr>
+                <th>Date de naissance</th>
+                <td>{{ app.user.datenaissance ? app.user.datenaissance|date('d/m/Y') : '' }}</td>
+            </tr>
+
+            <tr>
+                <th>Adresse Mail</th>
+                <td>{{ app.user.username  }}</td>
+            </tr>
+            <tr>
+                <th>Wallet</th>
+                <td>{{app.user.wallet}} </td>
+            </tr>
+            <tr>
+                <th>Nombre D'Avertissement </th>
+                <td>{{app.user.avertissement}} </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+        <a class="btn" href="{{ path('app_user_edit', {'id': app.user.id}) }}">Modifier mon profil</a>
+        <a class="btn" href="{{ path('joueur_showf_invitation', {'id': joueur.id})   }}">Inviter Joueur</a>
+
+
+    </div>
+
+    {% block footer  %}
+        {{ parent() }}
+    {% endblock %}
+
+{% endblock %}

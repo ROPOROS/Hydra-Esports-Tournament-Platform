@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jeu
+{% endblock %}
+
+{% block body %}
+	{% block header %}
+		{{ parent() }}
+	{% endblock %}
+	<div style="margin : 10rem 10rem;">
+
+
+		<a href="{{ path('jeu_index') }}">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewbox="0 0 256 256">
+				<rect width="256" height="256" fill="none"></rect>
+				<line x1="216" y1="128" x2="40" y2="128" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+				<polyline points="112 56 40 128 112 200" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline>
+			</svg>
+			Retourner à la page précédente
+		</a>
+
+
+		<hr>
+
+		<h4>{{ jeu.nom}}
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d53235" viewbox="0 0 256 256">
+				<rect width="256" height="256" fill="none"></rect>
+				<polyline points="96 48 176 128 96 208" fill="none" stroke="#d53235" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline>
+			</svg>
+			Détails</h4>
+
+		<br>
+
+		<table class="table" style=" color : #F9F9F9;">
+			<tbody>
+
+				<tr>
+					<th>Nom</th>
+					<td>{{ jeu.nom }}</td>
+				</tr>
+				<tr>
+					<th>Type</th>
+					<td>{{ jeu.type }}</td>
+				</tr>
+				<tr>
+					<th>Nombre de Joueurs Nécessaire</th>
+					<td>{{ jeu.nombrejoueursnecessaires }}</td>
+				</tr>
+				<tr>
+					<th>Chemin de l'Image</th>
+					<td>{{ jeu.image }}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="buttonsdau">
+			<a class="btn" href="{{ path('jeu_edit', {'id': jeu.id}) }}">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#e3e3e3" viewbox="0 0 256 256">
+					<rect width="256" height="256" fill="none"></rect>
+					<line x1="44" y1="156" x2="100" y2="212" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+					<path d="M92.7,216H48a8,8,0,0,1-8-8V163.3a7.9,7.9,0,0,1,2.3-5.6l120-120a8,8,0,0,1,11.4,0l44.6,44.6a8,8,0,0,1,0,11.4l-120,120A7.9,7.9,0,0,1,92.7,216Z" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path>
+					<line x1="136" y1="64" x2="192" y2="120" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+					<line x1="164" y1="92" x2="72" y2="184" fill="none" stroke="#e3e3e3" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+				</svg>
+			</a>
+			{{ include('jeu/_delete_form.html.twig') }}
+		</div>
+		</div>
+		 {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+
+	{% endblock %}

@@ -1,0 +1,75 @@
+{{ form_start(form, { 'attr': {'class': 'form-wrapper-pari'}}) }}
+    {# {{ form_widget(form) }} #}
+
+        <label for="montant" class = "label-form">
+            {{ form_widget(form.montant) }}
+        <span>Montant</span>
+        </label>
+        <label for="QRcode" class = "label-form">
+            <input  type="number" id="QRcode" name="QRcode" required="required">
+        <span>QR code</span>
+        </label>
+        <style>
+        .team-one img{
+          max-height:124px;
+        }
+        .label-form input{
+            height:40px;
+            margin-top:20px;
+        }
+        .label-form{
+            margin-bottom:10px;
+        }
+        .label-form>input:valid+span,
+.label-form>select:valid+span,
+.label-form>textarea:valid+span {
+  transform: translateY(-10px) scale(0.8);
+  transform-origin: 0;
+}
+        .label-form>input:focus+span {
+  transform: translateY(-10px) scale(0.8) !important;
+  transform-origin: 0;
+  color: #d53235;
+}
+.my-match-box-wrap>img
+{
+  height: 350px;
+}
+.my-match-box-wrap ul
+{
+    top:71px !important;
+    justify-content: space-around !important;
+}
+.my-match-info{
+    padding : 0 0 0 61px ;
+}
+.my-match-box-wrap ul li:last-child {
+  flex-grow: 0;
+}
+.my-match-info h5
+{
+  font-size:25px;
+}
+        </style>
+
+<input type="hidden" id="idequipe" name="idequipe" value="">
+<input type="hidden" id="idmatch" name="idmatch" value="">
+<input type="hidden" id="iduser" name="iduser" value="{{ login_gl }}"> 
+
+
+
+
+<button class = "btnparis">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#cfb34f" viewBox="0 0 256 256">
+        <rect width="256" height="256" fill="none"></rect>
+        <ellipse cx="96" cy="84" rx="80" ry="36" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
+        </ellipse>
+        <path d="M16,84v40c0,19.9,35.8,36,80,36s80-16.1,80-36V84" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="64" y1="117" x2="64" y2="157" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M176,96.7c36.5,3.4,64,17.9,64,35.3,0,19.9-35.8,36-80,36-19.6,0-37.6-3.2-51.5-8.4" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M80,159.3V172c0,19.9,35.8,36,80,36s80-16.1,80-36V132" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
+        </path>
+        <line x1="192" y1="165" x2="192" y2="205" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+        <line x1="128" y1="117" x2="128" y2="205" fill="none" stroke="#cfb34f" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+          Faire un paris
+
+</button>
+    {{ form_end(form) }}

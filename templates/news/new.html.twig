@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}New News{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+{#    <div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-content: center; gap: 20px;"#}
+    <style>
+        h1 {text-align: center;}
+        /*p {text-align: center;}*/
+        /*div {text-align: center;}*/
+    </style>
+
+    <div>
+
+        <h1 style="" >Create news</h1>
+    {{ include('news/_form.html.twig') }}
+
+    <a href="{{ path('app_news_index') }}">back to list</a>
+
+    </div>
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

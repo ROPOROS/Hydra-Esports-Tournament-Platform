@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{#{% block title %}New Reclamation{% endblock %}#}
+
+{% block body %}
+   {% block header %}
+       {{ parent() }}
+    {% endblock %}
+
+    {% block css %}
+        {{ parent() }}
+        {% endblock %}
+{#    <div style="margin: 6rem 6rem; display: flex; flex-direction: column; justify-content: center; align-content: center; gap: 20px;"#}
+
+{#    <h1>Create new Reclamation</h1>#}
+
+
+{#    {{ include('reclamation/_form.html.twig') }}#}
+
+
+{#    <a href="{{ path('app_reclamation_index') }}">back to list</a>#}
+{#    </div>#}
+
+{#    {% block footer %}#}
+{#        {{ parent() }}#}
+{#    {% endblock %}#}
+{#{% endblock %}#}
+
+<section class="breadcrumb-area breadcrumb-bg">
+    <div class="breadcrumb-overflow">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="breadcrumb-content">
+                            <h2 class="title">CONTACT US</h2>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="https://themepixer.com/demo/html/halda/halda/index.html">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Reclamation</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-none d-md-block">
+                        <div class="breadcrumb-img text-center text-lg-end">
+                            <img src="../assets/img/breadcrumb_img03.png" />
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="breadcrumb-shape shape-1 wow slideInLeft" data-wow-delay=".2s" data-wow-duration="2.5s" style="visibility: visible; animation-duration: 2.5s; animation-delay: 0.2s; animation-name: slideInLeft;"><img src="./Halda - eSports Gaming HTML5 Template_files/breadcrumb_shape01.png" alt=""></div>
+        <div class="breadcrumb-shape shape-2 wow slideInRight" data-wow-delay=".2s" data-wow-duration="2.5s" style="visibility: visible; animation-duration: 2.5s; animation-delay: 0.2s; animation-name: slideInRight;"><img src="./Halda - eSports Gaming HTML5 Template_files/breadcrumb_shape02.png" alt=""></div>
+    </div>
+</section>
+<!-- breadcrumb-area-end -->
+
+<!-- contact-area -->
+<section class="contact-area black-bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="contact-wrap">
+                    <div class="contact-title">
+                        <h2 class="title"><span>Reclamation</span> Feel free to express.</h2>
+                        <p>Make sure to follow and respect all the rules.</p>
+                    </div>
+{#                    <form action="https://themepixer.com/demo/html/halda/halda/contact.html#" class="contact-form">#}
+{#                        <div class="form-grp">#}
+{#                            <label for="name">Your Name <span>*</span></label>#}
+{#                            <input type="text" id="name" placeholder="Jon Deo...">#}
+{#                        </div>#}
+{#                        <div class="form-grp">#}
+{#                            <label for="email">Your email <span>*</span></label>#}
+{#                            <input type="email" id="email" placeholder="info@example.com">#}
+{#                        </div>#}
+{#                        <div class="form-grp">#}
+{#                            <label for="message">Your Message <span>*</span></label>#}
+{#                            <textarea name="message" id="message" placeholder="Opinion..."></textarea>#}
+{#                        </div>#}
+{#                        <div class="form-check">#}
+{#                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">#}
+{#                            <label class="form-check-label" for="flexCheckDefault">#}
+{#                                Don’t show your email address#}
+{#                            </label>#}
+{#                        </div>#}
+{#                        <button type="submit" class="btn">submit now</button>#}
+{#                    </form>#}
+                        {{ include('reclamation/_form.html.twig') }}
+                </div>
+            </div>
+            <div class="col-lg-5 col-md-8">
+                <div class="contact-info-wrap">
+                    <div class="contact-info-map">
+                        <img src="./public/assets/img/contact_info_map.png" alt="">
+                    </div>
+                    <div class="contact-info-list">
+                        <ul>
+                            <li>
+                                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                                <div class="content">
+                                    <p>05 Rue Benihilel Menzah VI<br> Ariana, Tunis</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                                <div class="content">
+                                    <p>+216 71 702 558</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon"><i class="fas fa-envelope-open"></i></div>
+                                <div class="content">
+                                    <p>Hydra20@gmail.com</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="contact-social">
+                        <ul>
+                            <li><a href="https://themepixer.com/demo/html/halda/halda/contact.html#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="https://themepixer.com/demo/html/halda/halda/contact.html#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="https://themepixer.com/demo/html/halda/halda/contact.html#"><i class="fab fa-pinterest-p"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% block js %}
+    {{ parent( ) }}
+    {% endblock %}
+
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

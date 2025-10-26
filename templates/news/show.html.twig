@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}News{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+    <style>
+        h1 {text-align: center;}
+        /*p {text-align: center;}*/
+        /*div {text-align: center;}*/
+    </style>
+    <h1>News Item</h1>
+
+    <table class="table" style="color : #F9F9F9;">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ news.id }}</td>
+            </tr>
+            <tr>
+                <th>SujetN</th>
+                <td>{{ news.sujetN }}</td>
+            </tr>
+            <tr>
+                <th>Text</th>
+                <td>{{ news.text }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td> <img src="{{ asset('uploads/images/products/' ~ news.getImage())  }}" height="100" width="100"></td>
+
+            </tr>
+            <tr>
+                <th>DateC</th>
+                <td>{{ news.dateC ? news.dateC|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateF</th>
+                <td>{{ news.dateF ? news.dateF|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Idjeu</th>
+                <td>{{ news.idjeu.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_news_index') }}">back to list</a>
+
+{#    <a href="{{ path('app_news_edit', {'id': news.id}) }}">edit</a>#}
+
+    {{ include('news/_delete_form.html.twig') }}
+    {% block footer %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}
